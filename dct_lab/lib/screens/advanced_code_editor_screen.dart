@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 import '../providers/code_editor_provider.dart';
+import '../providers/build_and_run_service.dart';
 import '../models/project_model.dart';
 
 class AdvancedCodeEditorScreen extends StatefulWidget {
@@ -52,10 +54,73 @@ int main() {
   
   void _runCode() {
     _saveCode();
-    // TODO: Implement actual code execution
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Running code...'))
+
+    // Get the BuildAndRunService
+    final buildService = Provider.of<BuildAndRunService>(context, listen: false);
+
+    // Show a loading snackbar
+    final snackBar = SnackBar(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(width: 10),
+          Text('Compiling and running code...'),
+        ],
+      ),
+      duration: const Duration(seconds: 10),
     );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    // Compile and run the code
+    buildService.compileCode(
+      _codeController.text,
+      '${Directory.systemTemp.path}/dct_lab_temp_executable',
+    ).then((success) {
+      if (success) {
+        // If compilation was successful, run the code
+        buildService.runCode('${Directory.systemTemp.path}/dct_lab_temp_executable').then((output) {
+          // Show the output in a dialog
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Program Output'),
+              content: Container(
+                width: double.maxFinite,
+                child: SingleChildScrollView(
+                  child: Text(output.isNotEmpty ? output : 'Program executed successfully with no output'),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          );
+        });
+      } else {
+        // Show compilation error
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Compilation Error'),
+            content: Container(
+              width: double.maxFinite,
+              child: SingleChildScrollView(
+                child: Text(buildService.errorOutput),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
   
   @override
