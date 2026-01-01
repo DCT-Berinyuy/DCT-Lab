@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:process_run/process_run.dart';
+import 'package:process_run/shell.dart';
 
 class BuildAndRunService extends ChangeNotifier {
   bool _isBuilding = false;
@@ -28,7 +28,8 @@ class BuildAndRunService extends ChangeNotifier {
       await sourceFile.writeAsString(sourceCode);
 
       // Compile the C code using gcc
-      final result = await run('gcc', [sourceFile.path, '-o', outputPath]);
+      final shell = Shell(workingDirectory: tempDir.path);
+      final result = await shell.run('gcc ${sourceFile.path} -o $outputPath');
 
       if (result.exitCode == 0) {
         _buildOutput = 'Compilation successful!';
@@ -71,10 +72,11 @@ class BuildAndRunService extends ChangeNotifier {
 
   Future<bool> checkCompiler() async {
     try {
-      final result = await run('gcc', ['--version']);
+      final shell = Shell();
+      final result = await shell.run('gcc --version');
       return result.exitCode == 0;
     } catch (e) {
-      return Future.value(false);
+      return false;
     }
   }
 
