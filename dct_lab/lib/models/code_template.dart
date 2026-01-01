@@ -89,6 +89,10 @@ int main() {
   }
   
   static CodeTemplate? getTemplateByName(String name) {
-    return getTemplates().firstWhere((template) => template.name == name, orElse: () => null);
+    try {
+      return getTemplates().firstWhere((template) => template.name == name);
+    } catch (e) {
+      return null;
+    }
   }
 }
