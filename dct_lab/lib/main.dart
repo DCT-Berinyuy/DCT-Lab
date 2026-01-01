@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/code_editor_provider.dart';
 import 'screens/advanced_code_editor_screen.dart';
+import 'screens/templates_screen.dart';
 
 void main() {
   runApp(const DctLabApp());
@@ -95,6 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 // Navigate to templates screen
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TemplatesScreen()),
+                );
               },
             ),
             ListTile(
