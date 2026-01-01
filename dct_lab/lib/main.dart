@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/code_editor_provider.dart';
+import 'screens/advanced_code_editor_screen.dart';
 
 void main() {
   runApp(const DctLabApp());
@@ -9,13 +12,18 @@ class DctLabApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DCT Lab - C/C++ Learning IDE',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CodeEditorProvider()),
+      ],
+      child: MaterialApp(
+        title: 'DCT Lab - C/C++ Learning IDE',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
@@ -63,6 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 // Navigate to new project screen
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AdvancedCodeEditorScreen()),
+                );
               },
             ),
             ListTile(
@@ -71,6 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 // Navigate to open project screen
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AdvancedCodeEditorScreen()),
+                );
               },
             ),
             ListTile(
