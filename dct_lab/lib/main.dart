@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/code_editor_provider.dart';
+import 'providers/build_and_run_service.dart';
 import 'screens/advanced_code_editor_screen.dart';
 import 'screens/templates_screen.dart';
 
@@ -16,6 +17,7 @@ class DctLabApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CodeEditorProvider()),
+        ChangeNotifierProvider(create: (_) => BuildAndRunService()),
       ],
       child: MaterialApp(
         title: 'DCT Lab - C/C++ Learning IDE',
