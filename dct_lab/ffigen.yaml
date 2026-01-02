@@ -1,0 +1,6 @@
+name: 'GamaBindings'
+description: 'Bindings for the Gama Engine.'
+output: 'lib/gama_bindings.dart'
+headers:
+  entry-points:
+    - '../lib/gama.h'

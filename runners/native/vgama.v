@@ -2,9 +2,7 @@ module vgama
 
 import gg
 import term
-
-// #flag -D_SGL_DEFAULT_MAX_COMMANDS=65536
-// #flag -D_SGL_DEFAULT_MAX_VERTICES=4194304
+import sync
 
 type GapiTask = fn ()
 
@@ -229,4 +227,11 @@ fn gapi_fullscreen(fc i32) {
 			gapi_isfullscreen__ = false
 		}
 	} or {}
+}
+
+// --- Physics Functions ---
+@[export: 'gapi_get_body_count']
+@[unsafe]
+fn gapi_get_body_count() int {
+	return 5 // Hardcoded for now
 }

@@ -1,4 +1,3 @@
-#include "gama/color.h"
 #include <gama.h>
 #include <gama/3d.h>
 
