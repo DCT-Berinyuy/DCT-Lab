@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DCT Lab IDE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418", // Matching the component's darkest bg
+                        "surface-dark": "#1e242d",     // Slightly lighter for panels
+                        "border-dark": "#282f39",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "Noto Sans", "sans-serif"],
+                        "mono": ["Fira Code", "Consolas", "Monaco", "monospace"], // For code
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #282f39; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4554; 
+        }
+        .code-line-numbers {
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display overflow-hidden h-screen flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-[#111418] px-4 py-2 h-14 shrink-0 z-20">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 28px;">deployed_code</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">DCT Lab <span class="text-[#9da8b9] font-normal text-sm ml-2">Project Alpha</span></h2>
+</div>
+<div class="flex gap-2">
+<button class="flex gap-2 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined" style="font-size: 20px;">play_arrow</span>
+<span class="truncate">Run</span>
+</button>
+<button class="flex gap-2 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#282f39] hover:bg-[#3b4554] transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined" style="font-size: 20px;">build</span>
+<span class="truncate">Compile</span>
+</button>
+<div class="w-px h-8 bg-[#282f39] mx-1"></div>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg size-9 bg-[#282f39] hover:bg-[#3b4554] text-white">
+<span class="material-symbols-outlined" style="font-size: 20px;">save</span>
+</button>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg size-9 bg-[#282f39] hover:bg-[#3b4554] text-white">
+<span class="material-symbols-outlined" style="font-size: 20px;">settings</span>
+</button>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg size-9 bg-[#282f39] hover:bg-[#3b4554] text-white ml-2">
+<img class="size-6 rounded-full object-cover" data-alt="User Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy5dLoxhlzMP42VS3A_0n0qSunKsC-WiSwuFmz1yhVwAIYCk_Ihz8715f1ESMdfkV82b2G1ormAuurIYMNtiWENx-1Hl2rs6VLa5X-_zXZj3SgmbnSTXjunbV2lxWpUyfNWU2aIyNdvWARanYLbjH5z4zr3dZxqCImNYeO9SI2DDqKi_JyDH79agtKsT1rQ8HAX84WDBGsfo2pG8urPcyz_3yueOViZjIz3eMVIrC18LjnCaYt8d8eSbbmfQFltH8LgoR1tFCeA36x"/>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<aside class="w-16 flex flex-col items-center py-4 gap-4 bg-[#111418] border-r border-border-dark shrink-0">
+<button class="group flex flex-col items-center gap-1 w-full px-2">
+<div class="p-2 rounded-lg bg-[#282f39] text-primary transition-colors">
+<span class="material-symbols-outlined filled">folder</span>
+</div>
+<span class="text-[10px] text-white font-medium">Files</span>
+</button>
+<button class="group flex flex-col items-center gap-1 w-full px-2">
+<div class="p-2 rounded-lg hover:bg-[#282f39] text-[#9da8b9] hover:text-white transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<span class="text-[10px] text-[#9da8b9] group-hover:text-white font-medium">Search</span>
+</button>
+<button class="group flex flex-col items-center gap-1 w-full px-2">
+<div class="p-2 rounded-lg hover:bg-[#282f39] text-[#9da8b9] hover:text-white transition-colors">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<span class="text-[10px] text-[#9da8b9] group-hover:text-white font-medium">AI Chat</span>
+</button>
+<button class="group flex flex-col items-center gap-1 w-full px-2">
+<div class="p-2 rounded-lg hover:bg-[#282f39] text-[#9da8b9] hover:text-white transition-colors">
+<span class="material-symbols-outlined">extension</span>
+</div>
+<span class="text-[10px] text-[#9da8b9] group-hover:text-white font-medium">Plugins</span>
+</button>
+<div class="mt-auto flex flex-col gap-4 w-full px-2">
+<button class="group flex flex-col items-center gap-1">
+<div class="p-2 rounded-lg hover:bg-[#282f39] text-[#9da8b9] hover:text-white transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+</button>
+</div>
+</aside>
+<div class="w-64 bg-[#111418] border-r border-border-dark flex flex-col hidden lg:flex">
+<div class="h-10 flex items-center px-4 border-b border-border-dark">
+<span class="text-sm font-bold text-[#9da8b9] uppercase tracking-wider">Explorer</span>
+</div>
+<div class="flex-1 overflow-y-auto p-2">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 px-2 py-1.5 rounded bg-[#282f39] text-white cursor-pointer">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+<span class="material-symbols-outlined text-yellow-500 text-lg">folder_open</span>
+<span class="text-sm">Project Alpha</span>
+</div>
+<div class="pl-6 flex flex-col gap-1">
+<div class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[#282f39]/50 cursor-pointer text-[#9da8b9] hover:text-white">
+<span class="material-symbols-outlined text-sm invisible">chevron_right</span>
+<span class="material-symbols-outlined text-blue-400 text-lg">description</span>
+<span class="text-sm text-white">main.cpp</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[#282f39]/50 cursor-pointer text-[#9da8b9] hover:text-white">
+<span class="material-symbols-outlined text-sm invisible">chevron_right</span>
+<span class="material-symbols-outlined text-yellow-400 text-lg">description</span>
+<span class="text-sm">player.h</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[#282f39]/50 cursor-pointer text-[#9da8b9] hover:text-white">
+<span class="material-symbols-outlined text-sm invisible">chevron_right</span>
+<span class="material-symbols-outlined text-blue-400 text-lg">description</span>
+<span class="text-sm">game_loop.cpp</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[#282f39]/50 cursor-pointer text-[#9da8b9] hover:text-white">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="material-symbols-outlined text-green-500 text-lg">folder</span>
+<span class="text-sm">assets</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<main class="flex-1 flex flex-col min-w-0 bg-[#1e242d]">
+<div class="h-10 flex items-center bg-[#111418] border-b border-border-dark overflow-x-auto">
+<div class="flex items-center gap-2 px-4 py-2 bg-[#1e242d] border-t-2 border-primary text-white text-sm font-medium min-w-[120px] cursor-pointer">
+<span class="material-symbols-outlined text-blue-400 text-base">code</span>
+<span>main.cpp</span>
+<span class="material-symbols-outlined text-base ml-auto hover:text-white text-[#9da8b9]">close</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 border-r border-border-dark text-[#9da8b9] hover:text-white text-sm font-medium min-w-[120px] cursor-pointer hover:bg-[#282f39]">
+<span class="material-symbols-outlined text-yellow-400 text-base">code</span>
+<span>player.h</span>
+<span class="material-symbols-outlined text-base ml-auto hover:text-white text-[#9da8b9]">close</span>
+</div>
+</div>
+<div class="flex-1 flex flex-row h-full overflow-hidden">
+<div class="flex-1 relative flex flex-col bg-[#1e242d]">
+<div class="flex-1 overflow-auto flex font-mono text-sm leading-6 py-4">
+<div class="flex flex-col items-end px-4 text-[#4b5563] select-none bg-[#1e242d] min-w-[3.5rem] text-right border-r border-[#282f39]/30">
+<div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+<div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div>
+</div>
+<div class="flex-1 px-4 text-gray-300">
+<div class="text-[#9da8b9] italic">// Importing Gama Engine core libraries</div>
+<div><span class="text-purple-400">#include</span> <span class="text-green-400">&lt;gama.h&gt;</span></div>
+<div><span class="text-purple-400">#include</span> <span class="text-green-400">&lt;physics.h&gt;</span></div>
+<br/>
+<div><span class="text-blue-400">class</span> <span class="text-yellow-300">Player</span> : <span class="text-blue-400">public</span> <span class="text-yellow-300">Entity</span> {</div>
+<div><span class="text-blue-400">public</span>:</div>
+<div class="pl-4"><span class="text-blue-400">float</span> speed = <span class="text-orange-300">10.0f</span>;</div>
+<br/>
+<div class="pl-4"><span class="text-blue-400">void</span> <span class="text-yellow-200">Start</span>() <span class="text-blue-400">override</span> {</div>
+<div class="pl-8 text-[#9da8b9] italic">// Initialize player position</div>
+<div class="pl-8">transform.<span class="text-blue-300">position</span> = <span class="text-yellow-300">Vector3</span>(<span class="text-orange-300">0</span>, <span class="text-orange-300">5</span>, <span class="text-orange-300">0</span>);</div>
+<div class="pl-4">}</div>
+<br/>
+<div class="pl-4"><span class="text-blue-400">void</span> <span class="text-yellow-200">Update</span>() <span class="text-blue-400">override</span> {</div>
+<div class="pl-8"><span class="text-blue-400">if</span> (Input::<span class="text-yellow-200">GetKey</span>(KeyCode::<span class="text-purple-300">Space</span>)) {</div>
+<div class="pl-12">Jump();</div>
+<div class="pl-8">}</div>
+<div class="pl-4">}</div>
+<br/>
+<div class="pl-4"><span class="text-blue-400">void</span> <span class="text-yellow-200">Jump</span>() {</div>
+<div class="pl-8">physics.<span class="text-yellow-200">AddForce</span>(Vector3::<span class="text-purple-300">Up</span> * <span class="text-orange-300">500.0f</span>);</div>
+<div class="pl-8 bg-red-500/10 border-b border-red-500/50 w-fit pr-2">Cout &lt;&lt; "Jumped!" <span class="text-red-400 font-bold ml-2">;</span> </div>
+<div class="pl-4">}</div>
+<div>};</div>
+</div>
+</div>
+<div class="absolute bottom-6 left-12 right-6 max-w-[500px] animate-fade-in-up">
+<div class="flex flex-col gap-3 rounded-lg border border-[#3b4554] bg-[#111418] p-4 shadow-xl">
+<div class="flex items-start gap-3">
+<div class="bg-primary/20 p-2 rounded-md text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<div class="flex justify-between items-center">
+<p class="text-white text-sm font-bold leading-tight">AI Syntax Fix</p>
+<span class="text-[10px] text-[#9da8b9] uppercase font-bold tracking-wider">Gama AI</span>
+</div>
+<p class="text-[#9da8b9] text-sm font-normal leading-normal">
+                                        It looks like you missed a semicolon on <span class="text-white font-mono">line 18</span>.
+                                    </p>
+</div>
+</div>
+<div class="flex gap-2 justify-end">
+<button class="h-8 px-3 rounded text-xs font-bold text-[#9da8b9] hover:text-white hover:bg-[#282f39] transition-colors">Dismiss</button>
+<button class="flex items-center gap-1 h-8 px-3 bg-primary hover:bg-blue-600 text-white rounded text-xs font-bold transition-colors">
+<span class="material-symbols-outlined text-sm">auto_fix</span>
+                                    Fix Syntax
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="w-1 bg-[#111418] hover:bg-primary cursor-col-resize flex items-center justify-center transition-colors group z-10">
+<div class="h-8 w-1 bg-[#3b4554] rounded group-hover:bg-white/50"></div>
+</div>
+<div class="w-[40%] bg-[#111418] flex flex-col border-l border-border-dark">
+<div class="flex border-b border-border-dark px-2 bg-[#111418]">
+<button class="flex flex-1 items-center justify-center border-b-[3px] border-b-primary text-white pb-3 pt-4 hover:bg-[#1e242d] transition-colors">
+<span class="text-sm font-bold leading-normal tracking-[0.015em]">Game Viewport</span>
+</button>
+<button class="flex flex-1 items-center justify-center border-b-[3px] border-b-transparent text-[#9da8b9] hover:text-white pb-3 pt-4 hover:bg-[#1e242d] transition-colors">
+<span class="text-sm font-bold leading-normal tracking-[0.015em]">Console</span>
+</button>
+<button class="flex flex-1 items-center justify-center border-b-[3px] border-b-transparent text-[#9da8b9] hover:text-white pb-3 pt-4 hover:bg-[#1e242d] transition-colors">
+<span class="text-sm font-bold leading-normal tracking-[0.015em]">Inspector</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col min-h-0 bg-[#1e242d]">
+<div class="h-10 border-b border-border-dark flex items-center justify-between px-3 bg-[#111418]">
+<div class="flex gap-2">
+<button class="p-1 rounded hover:bg-[#282f39] text-white"><span class="material-symbols-outlined text-sm">open_with</span></button>
+<button class="p-1 rounded hover:bg-[#282f39] text-[#9da8b9]"><span class="material-symbols-outlined text-sm">rotate_left</span></button>
+<button class="p-1 rounded hover:bg-[#282f39] text-[#9da8b9]"><span class="material-symbols-outlined text-sm">scale</span></button>
+</div>
+<div class="flex gap-2 items-center">
+<span class="text-[10px] text-[#9da8b9] font-mono">1920x1080</span>
+<div class="h-4 w-px bg-border-dark"></div>
+<span class="text-[10px] text-green-400 font-mono">60 FPS</span>
+</div>
+</div>
+<div class="flex-1 relative bg-black flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-900/40 to-black pointer-events-none"></div>
+<div class="relative w-full h-full flex items-center justify-center">
+<div class="absolute inset-0 grid grid-cols-[repeat(20,minmax(0,1fr))] grid-rows-[repeat(20,minmax(0,1fr))] opacity-20">
+<div class="absolute w-full h-px bg-primary/30 top-1/2"></div>
+<div class="absolute h-full w-px bg-primary/30 left-1/2"></div>
+</div>
+<div class="size-16 bg-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.5)] rounded-full animate-pulse" data-alt="Player Character Placeholder"></div>
+<div class="absolute bottom-10 right-10 size-12 bg-red-500 rounded rotate-12 opacity-80" data-alt="Enemy Object Placeholder"></div>
+<div class="absolute top-20 left-20 w-32 h-8 bg-green-500/80 rounded" data-alt="Platform Object Placeholder"></div>
+</div>
+<div class="absolute top-4 left-4 flex flex-col gap-1 pointer-events-none">
+<div class="text-white text-xs font-bold drop-shadow-md">SCORE: 1040</div>
+</div>
+</div>
+<div class="h-1/3 border-t border-border-dark bg-[#111418] flex flex-col">
+<div class="h-8 flex items-center justify-between px-3 bg-[#1e242d] border-b border-border-dark">
+<span class="text-xs font-bold text-[#9da8b9] uppercase">Output Log</span>
+<div class="flex gap-2">
+<button class="text-[10px] text-[#9da8b9] hover:text-white underline">Clear</button>
+</div>
+</div>
+<div class="flex-1 p-2 font-mono text-xs overflow-y-auto">
+<div class="text-green-400 mb-1">[System] Gama Engine initialized v0.9.1</div>
+<div class="text-[#9da8b9] mb-1">[Info] Loading assets from /res/textures...</div>
+<div class="text-[#9da8b9] mb-1">[Info] Mesh 'Player_Model' loaded (450ms)</div>
+<div class="text-yellow-400 mb-1">[Warning] Shader 'Standard_Lit' is deprecated.</div>
+<div class="text-red-400 flex items-start gap-2 bg-red-900/20 p-1 rounded mb-1">
+<span class="material-symbols-outlined text-sm mt-0.5">error</span>
+<span>
+                                        [Error] main.cpp:18:13: error: expected ';' before '}' token<br/>
+<span class="underline cursor-pointer hover:text-red-300">Click to locate</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<footer class="h-8 bg-primary text-white flex items-center justify-between px-4 text-xs font-medium select-none z-20">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>Ready</span>
+</div>
+<div class="h-3 w-px bg-white/30"></div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span>0 Errors</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>1 Warning</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div>Line 18, Col 13</div>
+<div class="h-3 w-px bg-white/30"></div>
+<div>UTF-8</div>
+<div class="h-3 w-px bg-white/30"></div>
+<div>C++17</div>
+<div class="h-3 w-px bg-white/30"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">wifi_off</span>
+<span>Offline Mode</span>
+</div>
+</div>
+</footer>
+</body></html>

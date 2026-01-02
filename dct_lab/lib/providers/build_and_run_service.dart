@@ -29,15 +29,21 @@ class BuildAndRunService extends ChangeNotifier {
 
       // Compile the C code using gcc
       final shell = Shell(workingDirectory: tempDir.path);
-      final result = await shell.run('gcc ${sourceFile.path} -o $outputPath');
+      final results = await shell.run('gcc ${sourceFile.path} -o $outputPath');
 
-      if (result.exitCode == 0) {
+      // Shell.run() returns a List<ProcessResult>, we need the first one
+      if (results.isNotEmpty && results[0].exitCode == 0) {
         _buildOutput = 'Compilation successful!';
         _isBuilding = false;
         notifyListeners();
         return true;
       } else {
-        _errorOutput = result.stderr.toString();
+        // Handle error output
+        if (results.isNotEmpty) {
+          _errorOutput = results[0].stderr.toString();
+        } else {
+          _errorOutput = 'Compilation failed with no output';
+        }
         _isBuilding = false;
         notifyListeners();
         return false;
@@ -73,8 +79,8 @@ class BuildAndRunService extends ChangeNotifier {
   Future<bool> checkCompiler() async {
     try {
       final shell = Shell();
-      final result = await shell.run('gcc --version');
-      return result.exitCode == 0;
+      final results = await shell.run('gcc --version');
+      return results.isNotEmpty && results[0].exitCode == 0;
     } catch (e) {
       return false;
     }

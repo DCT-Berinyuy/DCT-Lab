@@ -1,11 +1,15 @@
+import 'package:dct_lab/providers/gama_service.dart';
+import 'package:dct_lab/screens/templates_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'providers/code_editor_provider.dart';
+
 import 'providers/build_and_run_service.dart';
-import 'screens/advanced_code_editor_screen.dart';
-import 'screens/templates_screen.dart';
+import 'providers/code_editor_provider.dart';
+import 'providers/project_provider.dart';
 
 void main() {
+  GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const DctLabApp());
 }
 
@@ -18,6 +22,8 @@ class DctLabApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CodeEditorProvider()),
         ChangeNotifierProvider(create: (_) => BuildAndRunService()),
+        ChangeNotifierProvider(create: (_) => ProjectProvider()),
+        ChangeNotifierProvider(create: (_) => GamaService()),
       ],
       child: MaterialApp(
         title: 'DCT Lab - C/C++ Learning IDE',
@@ -25,95 +31,36 @@ class DctLabApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const HomeScreen(),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('DCT Lab - C/C++ Learning IDE'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: const Center(
-        child: Text(
-          'Welcome to DCT Lab - Your Offline C/C++ Learning Environment',
-          textAlign: TextAlign.center,
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'DCT Lab',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: const Color(0xFF2b7cee),
+          scaffoldBackgroundColor: const Color(0xFF111418),
+          cardColor: const Color(0xFF1e242d),
+          textTheme: GoogleFonts.lexendTextTheme(
+            Theme.of(context).textTheme.apply(
+                  bodyColor: Colors.white,
+                  displayColor: Colors.white,
                 ),
-              ),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF111418),
+            elevation: 0,
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            ListTile(
-              title: const Text('New Project'),
-              leading: const Icon(Icons.create_new_folder),
-              onTap: () {
-                // Navigate to new project screen
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AdvancedCodeEditorScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Open Project'),
-              leading: const Icon(Icons.folder_open),
-              onTap: () {
-                // Navigate to open project screen
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AdvancedCodeEditorScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Templates'),
-              leading: const Icon(Icons.extension),
-              onTap: () {
-                // Navigate to templates screen
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TemplatesScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Settings'),
-              leading: const Icon(Icons.settings),
-              onTap: () {
-                // Navigate to settings screen
-                Navigator.pop(context);
-              },
-            ),
-          ],
+            iconTheme: IconThemeData(color: Colors.white),
+          ),
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xFF2b7cee),
+            background: Color(0xFF111418),
+            surface: Color(0xFF1e242d),
+          ),
         ),
+        themeMode: ThemeMode.dark, // Enforce dark mode for now
+        home: const TemplatesScreen(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

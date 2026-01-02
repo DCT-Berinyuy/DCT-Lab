@@ -3,12 +3,14 @@ class CodeTemplate {
   final String description;
   final String code;
   final String fileName;
+  final String category; // New field
 
   CodeTemplate({
     required this.name,
     required this.description,
     required this.code,
     this.fileName = 'main.c',
+    this.category = 'General', // Default category
   });
 
   static List<CodeTemplate> getTemplates() {
@@ -22,6 +24,7 @@ int main() {
     printf("Hello, World!\\n");
     return 0;
 }''',
+        category: 'Fundamentals',
       ),
       CodeTemplate(
         name: 'Simple Calculator',
@@ -44,6 +47,7 @@ int main() {
     
     return 0;
 }''',
+        category: 'Fundamentals',
       ),
       CodeTemplate(
         name: 'Loop Example',
@@ -65,6 +69,7 @@ int main() {
     
     return 0;
 }''',
+        category: 'Fundamentals',
       ),
       CodeTemplate(
         name: 'Gama Engine Template',
@@ -84,6 +89,7 @@ int main() {
     
     return 0;
 }''',
+        category: 'Game Development',
       ),
     ];
   }

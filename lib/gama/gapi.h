@@ -164,3 +164,10 @@ extern int32_t
     __attribute__((import_module("gapi"), import_name("mouse_get")))
 #endif
     gapi_mouse_get(double *x, double *y);
+
+// --- Physics Functions ---
+extern int32_t
+#ifdef __ZIG_CC__
+    __attribute__((import_module("gapi"), import_name("get_body_count")))
+#endif
+    gapi_get_body_count();

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DCT Lab - Templates</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c232d",
+                        "text-main-light": "#111418",
+                        "text-main-dark": "#ffffff",
+                        "text-sec-light": "#637588",
+                        "text-sec-dark": "#9da8b9",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col text-text-main-light dark:text-text-main-dark antialiased">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 bg-surface-light dark:bg-background-dark px-6 py-3">
+<div class="flex items-center gap-4">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">DCT Lab</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">File</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Edit</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">View</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Help</a>
+</div>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-blue-600 transition-colors">
+<span class="truncate">Log In</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-gray-200 dark:bg-gray-800 text-text-main-light dark:text-text-main-dark text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+</header>
+<div class="layout-container flex h-full grow flex-col">
+<div class="w-full max-w-[1200px] mx-auto px-4 md:px-8 py-8 flex-1 flex flex-col">
+<div class="flex flex-col gap-2 mb-8">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Start a New Project</h1>
+<p class="text-text-sec-light dark:text-text-sec-dark text-base font-normal max-w-2xl">
+                    Choose a template to kickstart your C++ learning or game development journey. Browse categories or let our AI set up the scaffolding for you.
+                </p>
+</div>
+<div class="flex flex-col lg:flex-row gap-4 mb-8 items-start lg:items-center justify-between">
+<div class="w-full lg:max-w-md">
+<label class="flex flex-col w-full h-11">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden shadow-sm">
+<div class="text-text-sec-light dark:text-text-sec-dark flex border-none bg-surface-light dark:bg-surface-dark items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none border-none bg-surface-light dark:bg-surface-dark focus:outline-0 focus:ring-0 h-full placeholder:text-text-sec-light dark:placeholder:text-text-sec-dark px-2 text-base font-normal leading-normal text-text-main-light dark:text-text-main-dark" placeholder="Search templates (e.g., 'Loops', '3D Physics')" value=""/>
+</div>
+</label>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar w-full lg:w-auto">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary text-white pl-4 pr-4 transition-colors">
+<p class="text-sm font-medium leading-normal">All</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-surface-light dark:bg-surface-dark hover:bg-gray-200 dark:hover:bg-gray-700 pl-4 pr-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all">
+<p class="text-sm font-medium leading-normal">C++ Fundamentals</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-surface-light dark:bg-surface-dark hover:bg-gray-200 dark:hover:bg-gray-700 pl-4 pr-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all">
+<p class="text-sm font-medium leading-normal">Gama Engine 2D</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-surface-light dark:bg-surface-dark hover:bg-gray-200 dark:hover:bg-gray-700 pl-4 pr-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all">
+<p class="text-sm font-medium leading-normal">Gama Engine 3D</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-surface-light dark:bg-surface-dark hover:bg-gray-200 dark:hover:bg-gray-700 pl-4 pr-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-all">
+<span class="material-symbols-outlined text-[18px] text-purple-500">auto_awesome</span>
+<p class="text-sm font-medium leading-normal">AI Generated</p>
+</button>
+</div>
+</div>
+<div class="mb-10">
+<div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-sm bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 overflow-hidden relative group">
+<div class="absolute top-0 right-0 w-full h-full md:w-1/2 bg-gradient-to-l from-blue-900/20 to-transparent pointer-events-none"></div>
+<div class="w-full md:w-2/5 h-48 md:h-auto bg-center bg-no-repeat bg-cover relative" data-alt="Abstract visualization of artificial intelligence neural network connection" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAG_0dIRw_tqPU8Q0yArREG-J499k4S72647AcL2755SFsizlNSw2RQ6GXPy58uMoP6L-J58omkrdcm9ElQAGTVaeaHW2V16_Wsh100RSnltdQ54clqyZxHqZbNVEop7frN_u1rCtnrM6QusOVqMbhE7PPuN7IywJLcUOQvPu-8h7jaBDL8PooM_VksckNXmYL5wrCr8snkRa2TRQpIxY3Rked73yRa60SBRGblqKZilh0F9kH4dRPhpwi3fJ2sevOoCFIfhaDFsgNa");'>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-6xl opacity-80">smart_toy</span>
+</div>
+</div>
+<div class="flex w-full md:w-3/5 grow flex-col items-stretch justify-center gap-2 p-6 md:p-8 z-10">
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">New Feature</span>
+</div>
+<h3 class="text-2xl font-bold leading-tight">AI Template Generator</h3>
+<p class="text-text-sec-light dark:text-text-sec-dark text-base font-normal leading-normal mb-4">
+                            Not sure where to start? Describe the game or program you want to build (e.g., "A snake game in C++" or "Inventory management system"), and our AI will generate a custom starter project with comments explaining the code.
+                        </p>
+<div class="flex flex-wrap items-center gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/30 hover:bg-blue-600 transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined mr-2 text-[20px]">auto_awesome</span>
+                                Generate Project
+                            </button>
+<span class="text-xs text-text-sec-light dark:text-text-sec-dark font-medium">Powered by DCT AI</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center relative overflow-hidden" data-alt="Minimalist code editor screen showing hello world code">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
+<span class="material-symbols-outlined text-6xl text-gray-400 dark:text-gray-600 group-hover:scale-110 transition-transform duration-300">code</span>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded">Fundamentals</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Hello World &amp; Input</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            The perfect starting point. Learn standard I/O streams, variables, and basic syntax structure.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Beginner</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center relative overflow-hidden" data-alt="Visual representation of sorting bars graph">
+<div class="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-teal-500/10"></div>
+<span class="material-symbols-outlined text-6xl text-gray-400 dark:text-gray-600 group-hover:scale-110 transition-transform duration-300">bar_chart</span>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-teal-600 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 px-2 py-0.5 rounded">Algorithms</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Sorting Visualizer</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            Implement Bubble Sort and Quick Sort. Includes a visual array renderer to see the logic in action.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Intermediate</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-800 relative overflow-hidden bg-cover bg-center" data-alt="Retro 8-bit style arcade game screen with pixels" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8yz5LQxrZQeFWGftMEYHV1vOTMMQGI2Y5QUdNvsz_8dOkbiAYhlMzpWPUU2nThcgtwP2ouN00bnNUARZfpeIntuDp4AwJozzGTcSXFm2CJYUTCKC5GZ-jrNnU0SpwZg0h3aXf59qJM7689Yz40qtSFhH1x3ueQKcCw9APs3BCnnCyT3_j56-MbpB7VwfXMCZgw__uXlCOsKzrGbvboQc3f7h5zNk4jCnw5jMIhIAuebfTVGCdMBuvZ-ZbifAEu7c1XBnAJM-kjr8F');">
+<div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors"></div>
+<div class="absolute bottom-3 left-3">
+<span class="material-symbols-outlined text-white">videogame_asset</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30 px-2 py-0.5 rounded">Gama 2D</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">2D Platformer Base</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            Complete setup with character controller, gravity, tilemap collision, and a simple enemy AI.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Intermediate</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-800 relative overflow-hidden bg-cover bg-center" data-alt="Abstract 3D colorful shapes floating in space" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAdkwuNrC0kT4fBTLlP_AvVfZ5zHD0aH0tapG3vN3mNxP6ILe8qkNY3A8ApqV9WPe6PBbNvWTa57mEknP2bf-mli7lYbevhcZUlTtZ2J2mZn49EVQxuqZwlM467Fu7KykISOLgpz_yKVW739rxEriNNS28z7C2Obidp0cI1AXKYaO5GCILgyv21tclMO34wAZ5K5hl8FRbESGkzv_jZ4tGYKJxf6Gtl6irxSVva3ZQ9Ur8YwlY-QKiWOpSHfO7rC0U8PqAAyL7nsUMN');">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+<div class="absolute bottom-3 left-3">
+<span class="material-symbols-outlined text-white">view_in_ar</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/30 px-2 py-0.5 rounded">Gama 3D</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">3D Physics Playground</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            Explore rigid body physics. Includes a controllable camera, cube spawners, and collision events.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Advanced</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center relative overflow-hidden" data-alt="Diagram of a tree data structure nodes connected">
+<div class="absolute inset-0 bg-gradient-to-bl from-pink-500/10 to-red-500/10"></div>
+<span class="material-symbols-outlined text-6xl text-gray-400 dark:text-gray-600 group-hover:scale-110 transition-transform duration-300">account_tree</span>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-pink-600 dark:text-pink-400 bg-pink-100 dark:bg-pink-900/30 px-2 py-0.5 rounded">Data Structures</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Linked Lists &amp; Trees</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            Boilerplate code for singly linked lists and binary search trees. Great for homework assignments.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Advanced</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl overflow-hidden bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+<div class="h-40 bg-gray-800 relative overflow-hidden bg-cover bg-center" data-alt="Futuristic neon hud interface for game" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxiwgURtE7QixPlk1cXVDcm_p8_5S3E45odJtzgF1FNR3BfVodvnrtjitdwO9q6OvbZLIhiJwqMCsqYSfH5YCnkMUxH9JrFXCP4WNVMgjBuM1W-AS2z3KjPifeMz54vt8kcTOVpx2K9OKucE6TJP9CpcjSvyNhpoui4fWqg7iPU86wHUxZ57KiI_0r-qyKFBTahPBG6eqqvgm_je7okBI06F4Tph_ux8wUvMo8rCq0GJdgcqcSoPSAgFT30ozZOtYb97LhCgDoe9TY');">
+<div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors"></div>
+<div class="absolute bottom-3 left-3">
+<span class="material-symbols-outlined text-white">gps_fixed</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/30 px-2 py-0.5 rounded">Gama 3D</span>
+<span class="material-symbols-outlined text-text-sec-light dark:text-text-sec-dark text-[20px]">star_border</span>
+</div>
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">FPS Controller</h3>
+<p class="text-sm text-text-sec-light dark:text-text-sec-dark mb-4 line-clamp-2">
+                            First-person shooter starter kit. Includes mouselook, WASD movement, and raycast shooting mechanics.
+                        </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+<span class="text-xs font-medium text-text-sec-light dark:text-text-sec-dark">Advanced</span>
+<button class="text-sm font-bold text-primary hover:underline flex items-center">
+                                Load Template <span class="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="py-10 flex justify-center">
+<button class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-medium text-sm">
+                    Load More Templates
+                    <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>
