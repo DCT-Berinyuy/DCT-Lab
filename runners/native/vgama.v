@@ -49,13 +49,18 @@ fn update_virtual_dimensions() {
 }
 
 fn frame(mut _ gg.Context) {
-	// Process all drawing commands
+	gapi_ctx__.begin()
+	gapi_ctx__.end(how: .clear)
+
+	gapi_ctx__.begin()
 	mut count := u64(0)
 	for {
 		select {
 			func := <-gapi_queue__ {
 				if count > 30000 {
 					count = 0
+					gapi_ctx__.end(how: .passthru)
+					gapi_ctx__.begin()
 				}
 				func()
 				count++
@@ -65,10 +70,7 @@ fn frame(mut _ gg.Context) {
 			}
 		}
 	}
-
-	// Draw the streaming image to the screen to display the content
-	// This is where we would update the streaming image with actual pixel data if we had it
-	// For now, we'll just draw a placeholder
+	gapi_ctx__.end(how: .passthru)
 }
 
 @[export: 'gapi_wait_queue']
