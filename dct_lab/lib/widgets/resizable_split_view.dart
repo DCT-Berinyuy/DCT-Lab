@@ -9,7 +9,7 @@ class ResizableSplitView extends StatefulWidget {
     super.key,
     required this.left,
     required this.right,
-    this.initialLeftWidth = 300.0,
+    this.initialLeftWidth = 600.0,
   });
 
   @override
@@ -22,6 +22,8 @@ class _ResizableSplitViewState extends State<ResizableSplitView> {
   @override
   void initState() {
     super.initState();
+    // Calculate initial left width as 65% of available width to give more space to the editor
+    // We'll calculate this when the layout is built, but for now use a larger default
     _leftWidth = ValueNotifier(widget.initialLeftWidth);
   }
 
@@ -38,6 +40,9 @@ class _ResizableSplitViewState extends State<ResizableSplitView> {
         return ValueListenableBuilder<double>(
           valueListenable: _leftWidth,
           builder: (context, leftWidth, child) {
+            // Calculate the right width based on available space
+            double rightWidth = constraints.maxWidth - leftWidth - 4.0; // 4.0 is divider width
+
             return Row(
               children: [
                 SizedBox(
@@ -47,7 +52,7 @@ class _ResizableSplitViewState extends State<ResizableSplitView> {
                 GestureDetector(
                   onHorizontalDragUpdate: (details) {
                     final newWidth = leftWidth + details.delta.dx;
-                    if (newWidth > 100 && newWidth < constraints.maxWidth - 100) {
+                    if (newWidth > 200 && newWidth < constraints.maxWidth - 200) {
                       _leftWidth.value = newWidth;
                     }
                   },
@@ -59,7 +64,8 @@ class _ResizableSplitViewState extends State<ResizableSplitView> {
                     ),
                   ),
                 ),
-                Expanded(
+                SizedBox(
+                  width: rightWidth,
                   child: widget.right,
                 ),
               ],
