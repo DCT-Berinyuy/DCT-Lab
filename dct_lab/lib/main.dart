@@ -60,6 +60,10 @@ class DctLabApp extends StatelessWidget {
         ),
         themeMode: ThemeMode.dark, // Enforce dark mode for now
         home: const TemplatesScreen(),
+        routes: {
+          '/templates': (context) => const TemplatesScreen(),
+          '/editor': (context) => const AdvancedCodeEditorScreen(),
+        },
         debugShowCheckedModeBanner: false,
       ),
     );

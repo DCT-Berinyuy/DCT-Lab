@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/code_template.dart';
 import '../providers/code_editor_provider.dart';
 
 class FileExplorer extends StatefulWidget {
@@ -16,15 +17,15 @@ class _FileExplorerState extends State<FileExplorer> {
       name: 'Project Alpha',
       type: _FileType.folder,
       children: [
-        _FileNode(name: 'main.c', type: _FileType.file),
-        _FileNode(name: 'gama.h', type: _FileType.file),
-        _FileNode(name: 'player.h', type: _FileType.file),
+        _FileNode(name: 'main.c', type: _FileType.file, template: 'Hello World'),
+        _FileNode(name: 'gama.h', type: _FileType.file, template: 'Gama Engine Template'),
+        _FileNode(name: 'player.h', type: _FileType.file, template: 'Simple Calculator'),
         _FileNode(
           name: 'src',
           type: _FileType.folder,
           children: [
-            _FileNode(name: 'game_loop.c', type: _FileType.file),
-            _FileNode(name: 'physics.c', type: _FileType.file),
+            _FileNode(name: 'game_loop.c', type: _FileType.file, template: 'Loop Example'),
+            _FileNode(name: 'physics.c', type: _FileType.file, template: 'Gama Engine Template'),
           ],
         ),
         _FileNode(
@@ -300,9 +301,43 @@ class _FileTile extends StatelessWidget {
   }
 
   void _openFile(BuildContext context) {
-    // In a real implementation, this would open the file in the editor
+    // Get the code editor provider to load the appropriate template
+    final codeEditorProvider = Provider.of<CodeEditorProvider>(context, listen: false);
+
+    // Find the appropriate template based on the file name or template property
+    String codeTemplate = '';
+
+    if (node.template != null) {
+      // Look up the template by name
+      final template = CodeTemplate.getTemplateByName(node.template!);
+      if (template != null) {
+        codeTemplate = template.code;
+      }
+    } else {
+      // Provide default templates based on file extension
+      if (node.name.endsWith('.c')) {
+        codeTemplate = '''#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\\n");
+    return 0;
+}''';
+      } else if (node.name.endsWith('.h')) {
+        codeTemplate = '''#ifndef ${node.name.toUpperCase().replaceAll('.', '_')}
+#define ${node.name.toUpperCase().replaceAll('.', '_')}
+
+// Add your header definitions here
+
+#endif /* ${node.name.toUpperCase().replaceAll('.', '_')} */''';
+      }
+    }
+
+    // Load the code into the editor
+    codeEditorProvider.setCode(codeTemplate);
+
+    // Show a confirmation message
     final snackBar = SnackBar(
-      content: Text('Opening ${node.name}'),
+      content: Text('Loaded ${node.name}'),
       duration: const Duration(milliseconds: 500),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -364,10 +399,12 @@ class _FileNode {
   final String name;
   final _FileType type;
   final List<_FileNode> children;
+  final String? template; // Reference to a code template
 
   _FileNode({
     required this.name,
     required this.type,
     this.children = const [],
+    this.template,
   });
 }
