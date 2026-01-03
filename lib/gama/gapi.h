@@ -171,3 +171,16 @@ extern int32_t
     __attribute__((import_module("gapi"), import_name("get_body_count")))
 #endif
     gapi_get_body_count();
+
+// --- Framebuffer ---
+extern uint8_t*
+#ifdef __ZIG_CC__
+    __attribute__((import_module("gapi"), import_name("get_framebuffer")))
+#endif
+    gapi_get_framebuffer();
+
+extern void
+#ifdef __ZIG_CC__
+    __attribute__((import_module("gapi"), import_name("update_framebuffer")))
+#endif
+    gapi_update_framebuffer(const uint8_t* data, int32_t size);

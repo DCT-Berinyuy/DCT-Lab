@@ -2512,535 +2512,348 @@ class GamaBindings {
 
   _gmMouse get gm_mouse => _gm_mouse.ref;
 
-  late final ffi.Pointer<ffi.Double> __gm_dt = _lookup<ffi.Double>('_gm_dt');
-
-  double get _gm_dt => __gm_dt.value;
-
-  set _gm_dt(double value) => __gm_dt.value = value;
-
-  late final ffi.Pointer<ffi.Double> __gm_t = _lookup<ffi.Double>('_gm_t');
-
-  double get _gm_t => __gm_t.value;
-
-  set _gm_t(double value) => __gm_t.value = value;
-
-  void gapi_set_title(ffi.Pointer<ffi.Char> title) {
-    return _gapi_set_title(title);
-  }
-
-  late final _gapi_set_titlePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-        'gapi_set_title',
-      );
-  late final _gapi_set_title = _gapi_set_titlePtr
-      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
-
-  void gapi_resize(int width, int height) {
-    return _gapi_resize(width, height);
-  }
-
-  late final _gapi_resizePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Int32)>>(
-        'gapi_resize',
-      );
-  late final _gapi_resize = _gapi_resizePtr
-      .asFunction<void Function(int, int)>();
-
-  void gapi_set_bg_color(int r, int g, int b, int a) {
-    return _gapi_set_bg_color(r, g, b, a);
-  }
-
-  late final _gapi_set_bg_colorPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Uint8, ffi.Uint8, ffi.Uint8, ffi.Uint8)
-        >
-      >('gapi_set_bg_color');
-  late final _gapi_set_bg_color = _gapi_set_bg_colorPtr
-      .asFunction<void Function(int, int, int, int)>();
-
-  void gapi_fullscreen(int fullscreen) {
-    return _gapi_fullscreen(fullscreen);
-  }
-
-  late final _gapi_fullscreenPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
-        'gapi_fullscreen',
-      );
-  late final _gapi_fullscreen = _gapi_fullscreenPtr
-      .asFunction<void Function(int)>();
-
-  void gapi_log(ffi.Pointer<ffi.Char> message) {
-    return _gapi_log(message);
-  }
-
-  late final _gapi_logPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-        'gapi_log',
-      );
-  late final _gapi_log = _gapi_logPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
-
-  int gapi_init(int width, int height, ffi.Pointer<ffi.Char> title) {
-    return _gapi_init(width, height, title);
-  }
-
-  late final _gapi_initPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Int32, ffi.Pointer<ffi.Char>)
-        >
-      >('gapi_init');
-  late final _gapi_init = _gapi_initPtr
-      .asFunction<int Function(int, int, ffi.Pointer<ffi.Char>)>();
-
-  int gapi_yield(ffi.Pointer<ffi.Double> dt) {
-    return _gapi_yield(dt);
-  }
-
-  late final _gapi_yieldPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Double>)>>(
-        'gapi_yield',
-      );
-  late final _gapi_yield = _gapi_yieldPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Double>)>();
-
-  void gapi_quit() {
-    return _gapi_quit();
-  }
-
-  late final _gapi_quitPtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
-    'gapi_quit',
-  );
-  late final _gapi_quit = _gapi_quitPtr.asFunction<void Function()>();
-
-  int gapi_runs() {
-    return _gapi_runs();
-  }
-
-  late final _gapi_runsPtr = _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
-    'gapi_runs',
-  );
-  late final _gapi_runs = _gapi_runsPtr.asFunction<int Function()>();
-
-  int gapi_draw_line(
-    double x1,
-    double y1$1,
-    double x2,
-    double y2,
-    double thickness,
-    int r,
-    int g,
-    int b,
-    int a,
-  ) {
-    return _gapi_draw_line(x1, y1$1, x2, y2, thickness, r, g, b, a);
-  }
-
-  late final _gapi_draw_linePtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-          )
-        >
-      >('gapi_draw_line');
-  late final _gapi_draw_line = _gapi_draw_linePtr
-      .asFunction<
-        int Function(double, double, double, double, double, int, int, int, int)
-      >();
-
-  int gapi_draw_rect(
+  /// @brief Creates a new physics body with specified properties.
+  /// @param mass The mass of the body.
+  /// @param x The x-coordinate of the body's position.
+  /// @param y The y-coordinate of the body's position.
+  /// @param w The width of the body.
+  /// @param h The height of the body.
+  /// @param c The type of collider for the body.
+  /// @return A new gmBody instance.
+  gmBody gm_body_create(
+    double mass,
     double x,
     double y,
     double w,
     double h,
-    int cr,
-    int cg,
-    int cb,
-    int ca,
+    gmColliderType c,
   ) {
-    return _gapi_draw_rect(x, y, w, h, cr, cg, cb, ca);
+    return _gm_body_create(mass, x, y, w, h, c.value);
   }
 
-  late final _gapi_draw_rectPtr =
+  late final _gm_body_createPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Int32 Function(
+          gmBody Function(
             ffi.Double,
             ffi.Double,
             ffi.Double,
             ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
+            ffi.Double,
+            ffi.UnsignedInt,
           )
         >
-      >('gapi_draw_rect');
-  late final _gapi_draw_rect = _gapi_draw_rectPtr
+      >('gm_body_create');
+  late final _gm_body_create = _gm_body_createPtr
       .asFunction<
-        int Function(double, double, double, double, int, int, int, int)
+        gmBody Function(double, double, double, double, double, int)
       >();
 
-  int gapi_draw_rounded_rect(
-    double x,
-    double y,
-    double w,
-    double h,
-    double r,
-    int cr,
-    int cg,
-    int cb,
-    int ca,
-  ) {
-    return _gapi_draw_rounded_rect(x, y, w, h, r, cr, cg, cb, ca);
+  /// @brief Limits the maximum speed of a body.
+  /// @param body Pointer to the body to modify.
+  /// @param max_speed The maximum allowed speed.
+  void gm_max_speed(ffi.Pointer<gmBody> body, double max_speed) {
+    return _gm_max_speed(body, max_speed);
   }
 
-  late final _gapi_draw_rounded_rectPtr =
+  late final _gm_max_speedPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
+      >('gm_max_speed');
+  late final _gm_max_speed = _gm_max_speedPtr
+      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
+
+  /// @brief Sets the minimum speed of a body.
+  /// @param body Pointer to the body to modify.
+  /// @param min_speed The minimum allowed speed.
+  void gm_min_speed(ffi.Pointer<gmBody> body, double min_speed) {
+    return _gm_min_speed(body, min_speed);
+  }
+
+  late final _gm_min_speedPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
+      >('gm_min_speed');
+  late final _gm_min_speed = _gm_min_speedPtr
+      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
+
+  /// @brief Sets the speed of a body while preserving its direction.
+  /// @param body Pointer to the body to modify.
+  /// @param speed The speed to set.
+  void gm_speed(ffi.Pointer<gmBody> body, double speed) {
+    return _gm_speed(body, speed);
+  }
+
+  late final _gm_speedPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
+      >('gm_speed');
+  late final _gm_speed = _gm_speedPtr
+      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
+
+  /// @brief Limits the maximum speed of a body using an animation function.
+  /// @param body Pointer to the body to modify.
+  /// @param max_speed The maximum allowed speed.
+  /// @param animator Function pointer to animate the velocity change.
+  /// @param dt Delta time for animation.
+  /// @param t Time parameter for animation.
+  void gm_max_speed_anim(
+    ffi.Pointer<gmBody> body,
+    double max_speed,
+    ffi.Pointer<
+      ffi.NativeFunction<
+        ffi.Void Function(
+          ffi.Pointer<ffi.Double> value,
+          ffi.Double target,
+          ffi.Double dt,
+          ffi.Double t,
+        )
+      >
+    >
+    animator,
+    double dt,
+    double t,
+  ) {
+    return _gm_max_speed_anim(body, max_speed, animator, dt, t);
+  }
+
+  late final _gm_max_speed_animPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Void Function(
+            ffi.Pointer<gmBody>,
+            ffi.Double,
+            ffi.Pointer<
+              ffi.NativeFunction<
+                ffi.Void Function(
+                  ffi.Pointer<ffi.Double> value,
+                  ffi.Double target,
+                  ffi.Double dt,
+                  ffi.Double t,
+                )
+              >
+            >,
             ffi.Double,
             ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
           )
         >
-      >('gapi_draw_rounded_rect');
-  late final _gapi_draw_rounded_rect = _gapi_draw_rounded_rectPtr
+      >('gm_max_speed_anim');
+  late final _gm_max_speed_anim = _gm_max_speed_animPtr
       .asFunction<
-        int Function(double, double, double, double, double, int, int, int, int)
-      >();
-
-  int gapi_draw_circle(
-    double center_x,
-    double center_y,
-    double radius,
-    int red,
-    int green,
-    int blue,
-    int alpha,
-  ) {
-    return _gapi_draw_circle(
-      center_x,
-      center_y,
-      radius,
-      red,
-      green,
-      blue,
-      alpha,
-    );
-  }
-
-  late final _gapi_draw_circlePtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-          )
-        >
-      >('gapi_draw_circle');
-  late final _gapi_draw_circle = _gapi_draw_circlePtr
-      .asFunction<int Function(double, double, double, int, int, int, int)>();
-
-  int gapi_draw_ellipse(
-    double x,
-    double y,
-    double w,
-    double h,
-    int cr,
-    int cg,
-    int cb,
-    int ca,
-  ) {
-    return _gapi_draw_ellipse(x, y, w, h, cr, cg, cb, ca);
-  }
-
-  late final _gapi_draw_ellipsePtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-          )
-        >
-      >('gapi_draw_ellipse');
-  late final _gapi_draw_ellipse = _gapi_draw_ellipsePtr
-      .asFunction<
-        int Function(double, double, double, double, int, int, int, int)
-      >();
-
-  int gapi_draw_triangle(
-    double x1,
-    double y1$1,
-    double x2,
-    double y2,
-    double x3,
-    double y3,
-    int cr,
-    int cg,
-    int cb,
-    int ca,
-  ) {
-    return _gapi_draw_triangle(x1, y1$1, x2, y2, x3, y3, cr, cg, cb, ca);
-  }
-
-  late final _gapi_draw_trianglePtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-          )
-        >
-      >('gapi_draw_triangle');
-  late final _gapi_draw_triangle = _gapi_draw_trianglePtr
-      .asFunction<
-        int Function(
+        void Function(
+          ffi.Pointer<gmBody>,
+          double,
+          ffi.Pointer<
+            ffi.NativeFunction<
+              ffi.Void Function(
+                ffi.Pointer<ffi.Double> value,
+                ffi.Double target,
+                ffi.Double dt,
+                ffi.Double t,
+              )
+            >
+          >,
           double,
           double,
-          double,
-          double,
-          double,
-          double,
-          int,
-          int,
-          int,
-          int,
         )
       >();
 
-  int gapi_create_image(
-    ffi.Pointer<ffi.Char> path,
-    ffi.Pointer<ffi.Uint32> width,
-    ffi.Pointer<ffi.Uint32> height,
+  /// @brief Sets the minimum speed of a body using an animation function.
+  /// @param body Pointer to the body to modify.
+  /// @param min_speed The minimum allowed speed.
+  /// @param animator Function pointer to animate the velocity change.
+  /// @param dt Delta time for animation.
+  /// @param t Time parameter for animation.
+  void gm_min_speed_anim(
+    ffi.Pointer<gmBody> body,
+    double min_speed,
+    ffi.Pointer<
+      ffi.NativeFunction<
+        ffi.Void Function(
+          ffi.Pointer<ffi.Double> value,
+          ffi.Double target,
+          ffi.Double dt,
+          ffi.Double t,
+        )
+      >
+    >
+    animator,
+    double dt,
+    double t,
   ) {
-    return _gapi_create_image(path, width, height);
+    return _gm_min_speed_anim(body, min_speed, animator, dt, t);
   }
 
-  late final _gapi_create_imagePtr =
+  late final _gm_min_speed_animPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Uint32 Function(
-            ffi.Pointer<ffi.Char>,
-            ffi.Pointer<ffi.Uint32>,
-            ffi.Pointer<ffi.Uint32>,
+          ffi.Void Function(
+            ffi.Pointer<gmBody>,
+            ffi.Double,
+            ffi.Pointer<
+              ffi.NativeFunction<
+                ffi.Void Function(
+                  ffi.Pointer<ffi.Double> value,
+                  ffi.Double target,
+                  ffi.Double dt,
+                  ffi.Double t,
+                )
+              >
+            >,
+            ffi.Double,
+            ffi.Double,
           )
         >
-      >('gapi_create_image');
-  late final _gapi_create_image = _gapi_create_imagePtr
+      >('gm_min_speed_anim');
+  late final _gm_min_speed_anim = _gm_min_speed_animPtr
       .asFunction<
-        int Function(
-          ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Uint32>,
-          ffi.Pointer<ffi.Uint32>,
+        void Function(
+          ffi.Pointer<gmBody>,
+          double,
+          ffi.Pointer<
+            ffi.NativeFunction<
+              ffi.Void Function(
+                ffi.Pointer<ffi.Double> value,
+                ffi.Double target,
+                ffi.Double dt,
+                ffi.Double t,
+              )
+            >
+          >,
+          double,
+          double,
         )
       >();
 
-  int gapi_draw_image(
-    int handle,
-    double x,
-    double y,
-    double width,
-    double height,
+  /// @brief Sets the speed of a body using an animation function.
+  /// @param body Pointer to the body to modify.
+  /// @param speed The speed to set.
+  /// @param animator Function pointer to animate the velocity change.
+  /// @param dt Delta time for animation.
+  /// @param t Time parameter for animation.
+  void gm_speed_anim(
+    ffi.Pointer<gmBody> body,
+    double speed,
+    ffi.Pointer<
+      ffi.NativeFunction<
+        ffi.Void Function(
+          ffi.Pointer<ffi.Double> value,
+          ffi.Double target,
+          ffi.Double dt,
+          ffi.Double t,
+        )
+      >
+    >
+    animator,
+    double dt,
+    double t,
   ) {
-    return _gapi_draw_image(handle, x, y, width, height);
+    return _gm_speed_anim(body, speed, animator, dt, t);
   }
 
-  late final _gapi_draw_imagePtr =
+  late final _gm_speed_animPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Uint32,
+          ffi.Void Function(
+            ffi.Pointer<gmBody>,
             ffi.Double,
-            ffi.Double,
+            ffi.Pointer<
+              ffi.NativeFunction<
+                ffi.Void Function(
+                  ffi.Pointer<ffi.Double> value,
+                  ffi.Double target,
+                  ffi.Double dt,
+                  ffi.Double t,
+                )
+              >
+            >,
             ffi.Double,
             ffi.Double,
           )
         >
-      >('gapi_draw_image');
-  late final _gapi_draw_image = _gapi_draw_imagePtr
-      .asFunction<int Function(int, double, double, double, double)>();
-
-  int gapi_draw_image_part(
-    int handle,
-    int slice_x,
-    int slice_y,
-    int slice_width,
-    int slice_height,
-    double x,
-    double y,
-    double width,
-    double height,
-  ) {
-    return _gapi_draw_image_part(
-      handle,
-      slice_x,
-      slice_y,
-      slice_width,
-      slice_height,
-      x,
-      y,
-      width,
-      height,
-    );
-  }
-
-  late final _gapi_draw_image_partPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Uint32,
-            ffi.Uint32,
-            ffi.Uint32,
-            ffi.Uint32,
-            ffi.Uint32,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gapi_draw_image_part');
-  late final _gapi_draw_image_part = _gapi_draw_image_partPtr
+      >('gm_speed_anim');
+  late final _gm_speed_anim = _gm_speed_animPtr
       .asFunction<
-        int Function(int, int, int, int, int, double, double, double, double)
-      >();
-
-  int gapi_draw_text(
-    double x,
-    double y,
-    double height,
-    ffi.Pointer<ffi.Char> txt,
-    ffi.Pointer<ffi.Char> font,
-    int style,
-    int cr,
-    int cg,
-    int cb,
-    int ca,
-  ) {
-    return _gapi_draw_text(x, y, height, txt, font, style, cr, cg, cb, ca);
-  }
-
-  late final _gapi_draw_textPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int32 Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<ffi.Char>,
-            ffi.Pointer<ffi.Char>,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-            ffi.Uint8,
-          )
-        >
-      >('gapi_draw_text');
-  late final _gapi_draw_text = _gapi_draw_textPtr
-      .asFunction<
-        int Function(
+        void Function(
+          ffi.Pointer<gmBody>,
+          double,
+          ffi.Pointer<
+            ffi.NativeFunction<
+              ffi.Void Function(
+                ffi.Pointer<ffi.Double> value,
+                ffi.Double target,
+                ffi.Double dt,
+                ffi.Double t,
+              )
+            >
+          >,
           double,
           double,
-          double,
-          ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>,
-          int,
-          int,
-          int,
-          int,
-          int,
         )
       >();
 
-  int gapi_key_down(int t, int k) {
-    return _gapi_key_down(t, k);
+  /// @brief Creates a rectangular physics body.
+  /// @param m The mass of the body.
+  /// @param x The x-coordinate of the body's position.
+  /// @param y The y-coordinate of the body's position.
+  /// @param w The width of the body.
+  /// @param h The height of the body.
+  /// @return A new rectangular gmBody instance.
+  gmBody gm_rectangle_body(double m, double x, double y, double w, double h) {
+    return _gm_rectangle_body(m, x, y, w, h);
   }
 
-  late final _gapi_key_downPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Char, ffi.Char)>>(
-        'gapi_key_down',
-      );
-  late final _gapi_key_down = _gapi_key_downPtr
-      .asFunction<int Function(int, int)>();
-
-  void gapi_wait_queue() {
-    return _gapi_wait_queue();
-  }
-
-  late final _gapi_wait_queuePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('gapi_wait_queue');
-  late final _gapi_wait_queue = _gapi_wait_queuePtr
-      .asFunction<void Function()>();
-
-  int gapi_mouse_down() {
-    return _gapi_mouse_down();
-  }
-
-  late final _gapi_mouse_downPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gapi_mouse_down');
-  late final _gapi_mouse_down = _gapi_mouse_downPtr
-      .asFunction<int Function()>();
-
-  int gapi_mouse_get(ffi.Pointer<ffi.Double> x, ffi.Pointer<ffi.Double> y) {
-    return _gapi_mouse_get(x, y);
-  }
-
-  late final _gapi_mouse_getPtr =
+  late final _gm_rectangle_bodyPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)
+          gmBody Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+          )
         >
-      >('gapi_mouse_get');
-  late final _gapi_mouse_get = _gapi_mouse_getPtr
-      .asFunction<
-        int Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)
-      >();
+      >('gm_rectangle_body');
+  late final _gm_rectangle_body = _gm_rectangle_bodyPtr
+      .asFunction<gmBody Function(double, double, double, double, double)>();
 
-  int gapi_get_body_count() {
-    return _gapi_get_body_count();
+  /// @brief Creates a circular physics body.
+  /// @param m The mass of the body.
+  /// @param x The x-coordinate of the body's position.
+  /// @param y The y-coordinate of the body's position.
+  /// @param r The radius of the body.
+  /// @return A new circular gmBody instance.
+  gmBody gm_circle_body(double m, double x, double y, double r) {
+    return _gm_circle_body(m, x, y, r);
   }
 
-  late final _gapi_get_body_countPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gapi_get_body_count');
-  late final _gapi_get_body_count = _gapi_get_body_countPtr
-      .asFunction<int Function()>();
+  late final _gm_circle_bodyPtr =
+      _lookup<
+        ffi.NativeFunction<
+          gmBody Function(ffi.Double, ffi.Double, ffi.Double, ffi.Double)
+        >
+      >('gm_circle_body');
+  late final _gm_circle_body = _gm_circle_bodyPtr
+      .asFunction<gmBody Function(double, double, double, double)>();
+
+  /// @brief Checks if a point is contained within a body's collider.
+  /// @param body Pointer to the body to check.
+  /// @param x The x-coordinate of the point.
+  /// @param y The y-coordinate of the point.
+  /// @return 1 if the point is inside the body, 0 otherwise.
+  int gm_body_contains(ffi.Pointer<gmBody> body, double x, double y) {
+    return _gm_body_contains(body, x, y);
+  }
+
+  late final _gm_body_containsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<gmBody>, ffi.Double, ffi.Double)
+        >
+      >('gm_body_contains');
+  late final _gm_body_contains = _gm_body_containsPtr
+      .asFunction<int Function(ffi.Pointer<gmBody>, double, double)>();
 
   int __ctype_get_mb_cur_max() {
     return ___ctype_get_mb_cur_max();
@@ -4650,433 +4463,6 @@ class GamaBindings {
   late final _getloadavg = _getloadavgPtr
       .asFunction<int Function(ffi.Pointer<ffi.Double>, int)>();
 
-  /// @brief Moves a value towards a target with spring-like motion (exponential
-  /// ease-out).
-  /// @param value A pointer to the double value to animate.
-  /// @param target The target value to animate towards.
-  /// @param t The animation's approximate duration. A smaller 't' results in a
-  /// faster animation.
-  void gm_anim_spring(ffi.Pointer<ffi.Double> value, double target, double t) {
-    return _gm_anim_spring(value, target, t);
-  }
-
-  late final _gm_anim_springPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Double, ffi.Double)
-        >
-      >('gm_anim_spring');
-  late final _gm_anim_spring = _gm_anim_springPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Double>, double, double)>();
-
-  /// @brief Starts fast and decelerates quadratically to the target. More
-  /// pronounced than spring.
-  /// @param value A pointer to the double value to animate.
-  /// @param target The target value to animate towards.
-  /// @param t The animation's approximate duration.
-  void gm_anim_ease_out_quad(
-    ffi.Pointer<ffi.Double> value,
-    double target,
-    double t,
-  ) {
-    return _gm_anim_ease_out_quad(value, target, t);
-  }
-
-  late final _gm_anim_ease_out_quadPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Double, ffi.Double)
-        >
-      >('gm_anim_ease_out_quad');
-  late final _gm_anim_ease_out_quad = _gm_anim_ease_out_quadPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Double>, double, double)>();
-
-  /// @brief Starts very fast and decelerates cubically to the target. More
-  /// pronounced than quad.
-  /// @param value A pointer to the double value to animate.
-  /// @param target The target value to animate towards.
-  /// @param t The animation's approximate duration.
-  void gm_anim_ease_out_cubic(
-    ffi.Pointer<ffi.Double> value,
-    double target,
-    double t,
-  ) {
-    return _gm_anim_ease_out_cubic(value, target, t);
-  }
-
-  late final _gm_anim_ease_out_cubicPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Double, ffi.Double)
-        >
-      >('gm_anim_ease_out_cubic');
-  late final _gm_anim_ease_out_cubic = _gm_anim_ease_out_cubicPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Double>, double, double)>();
-
-  /// @brief Starts slow and accelerates quadratically towards the target.
-  /// @param value A pointer to the double value to animate.
-  /// @param target The target value to animate towards.
-  /// @param t The animation's approximate duration.
-  void gm_anim_ease_in_quad(
-    ffi.Pointer<ffi.Double> value,
-    double target,
-    double t,
-  ) {
-    return _gm_anim_ease_in_quad(value, target, t);
-  }
-
-  late final _gm_anim_ease_in_quadPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Double, ffi.Double)
-        >
-      >('gm_anim_ease_in_quad');
-  late final _gm_anim_ease_in_quad = _gm_anim_ease_in_quadPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Double>, double, double)>();
-
-  /// @brief Creates a new physics body with specified properties.
-  /// @param mass The mass of the body.
-  /// @param x The x-coordinate of the body's position.
-  /// @param y The y-coordinate of the body's position.
-  /// @param w The width of the body.
-  /// @param h The height of the body.
-  /// @param c The type of collider for the body.
-  /// @return A new gmBody instance.
-  gmBody gm_body_create(
-    double mass,
-    double x,
-    double y,
-    double w,
-    double h,
-    gmColliderType c,
-  ) {
-    return _gm_body_create(mass, x, y, w, h, c.value);
-  }
-
-  late final _gm_body_createPtr =
-      _lookup<
-        ffi.NativeFunction<
-          gmBody Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.UnsignedInt,
-          )
-        >
-      >('gm_body_create');
-  late final _gm_body_create = _gm_body_createPtr
-      .asFunction<
-        gmBody Function(double, double, double, double, double, int)
-      >();
-
-  /// @brief Limits the maximum speed of a body.
-  /// @param body Pointer to the body to modify.
-  /// @param max_speed The maximum allowed speed.
-  void gm_max_speed(ffi.Pointer<gmBody> body, double max_speed) {
-    return _gm_max_speed(body, max_speed);
-  }
-
-  late final _gm_max_speedPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
-      >('gm_max_speed');
-  late final _gm_max_speed = _gm_max_speedPtr
-      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
-
-  /// @brief Sets the minimum speed of a body.
-  /// @param body Pointer to the body to modify.
-  /// @param min_speed The minimum allowed speed.
-  void gm_min_speed(ffi.Pointer<gmBody> body, double min_speed) {
-    return _gm_min_speed(body, min_speed);
-  }
-
-  late final _gm_min_speedPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
-      >('gm_min_speed');
-  late final _gm_min_speed = _gm_min_speedPtr
-      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
-
-  /// @brief Sets the speed of a body while preserving its direction.
-  /// @param body Pointer to the body to modify.
-  /// @param speed The speed to set.
-  void gm_speed(ffi.Pointer<gmBody> body, double speed) {
-    return _gm_speed(body, speed);
-  }
-
-  late final _gm_speedPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
-      >('gm_speed');
-  late final _gm_speed = _gm_speedPtr
-      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
-
-  /// @brief Limits the maximum speed of a body using an animation function.
-  /// @param body Pointer to the body to modify.
-  /// @param max_speed The maximum allowed speed.
-  /// @param animator Function pointer to animate the velocity change.
-  /// @param dt Delta time for animation.
-  /// @param t Time parameter for animation.
-  void gm_max_speed_anim(
-    ffi.Pointer<gmBody> body,
-    double max_speed,
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(
-          ffi.Pointer<ffi.Double> value,
-          ffi.Double target,
-          ffi.Double dt,
-          ffi.Double t,
-        )
-      >
-    >
-    animator,
-    double dt,
-    double t,
-  ) {
-    return _gm_max_speed_anim(body, max_speed, animator, dt, t);
-  }
-
-  late final _gm_max_speed_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<gmBody>,
-            ffi.Double,
-            ffi.Pointer<
-              ffi.NativeFunction<
-                ffi.Void Function(
-                  ffi.Pointer<ffi.Double> value,
-                  ffi.Double target,
-                  ffi.Double dt,
-                  ffi.Double t,
-                )
-              >
-            >,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gm_max_speed_anim');
-  late final _gm_max_speed_anim = _gm_max_speed_animPtr
-      .asFunction<
-        void Function(
-          ffi.Pointer<gmBody>,
-          double,
-          ffi.Pointer<
-            ffi.NativeFunction<
-              ffi.Void Function(
-                ffi.Pointer<ffi.Double> value,
-                ffi.Double target,
-                ffi.Double dt,
-                ffi.Double t,
-              )
-            >
-          >,
-          double,
-          double,
-        )
-      >();
-
-  /// @brief Sets the minimum speed of a body using an animation function.
-  /// @param body Pointer to the body to modify.
-  /// @param min_speed The minimum allowed speed.
-  /// @param animator Function pointer to animate the velocity change.
-  /// @param dt Delta time for animation.
-  /// @param t Time parameter for animation.
-  void gm_min_speed_anim(
-    ffi.Pointer<gmBody> body,
-    double min_speed,
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(
-          ffi.Pointer<ffi.Double> value,
-          ffi.Double target,
-          ffi.Double dt,
-          ffi.Double t,
-        )
-      >
-    >
-    animator,
-    double dt,
-    double t,
-  ) {
-    return _gm_min_speed_anim(body, min_speed, animator, dt, t);
-  }
-
-  late final _gm_min_speed_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<gmBody>,
-            ffi.Double,
-            ffi.Pointer<
-              ffi.NativeFunction<
-                ffi.Void Function(
-                  ffi.Pointer<ffi.Double> value,
-                  ffi.Double target,
-                  ffi.Double dt,
-                  ffi.Double t,
-                )
-              >
-            >,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gm_min_speed_anim');
-  late final _gm_min_speed_anim = _gm_min_speed_animPtr
-      .asFunction<
-        void Function(
-          ffi.Pointer<gmBody>,
-          double,
-          ffi.Pointer<
-            ffi.NativeFunction<
-              ffi.Void Function(
-                ffi.Pointer<ffi.Double> value,
-                ffi.Double target,
-                ffi.Double dt,
-                ffi.Double t,
-              )
-            >
-          >,
-          double,
-          double,
-        )
-      >();
-
-  /// @brief Sets the speed of a body using an animation function.
-  /// @param body Pointer to the body to modify.
-  /// @param speed The speed to set.
-  /// @param animator Function pointer to animate the velocity change.
-  /// @param dt Delta time for animation.
-  /// @param t Time parameter for animation.
-  void gm_speed_anim(
-    ffi.Pointer<gmBody> body,
-    double speed,
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(
-          ffi.Pointer<ffi.Double> value,
-          ffi.Double target,
-          ffi.Double dt,
-          ffi.Double t,
-        )
-      >
-    >
-    animator,
-    double dt,
-    double t,
-  ) {
-    return _gm_speed_anim(body, speed, animator, dt, t);
-  }
-
-  late final _gm_speed_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<gmBody>,
-            ffi.Double,
-            ffi.Pointer<
-              ffi.NativeFunction<
-                ffi.Void Function(
-                  ffi.Pointer<ffi.Double> value,
-                  ffi.Double target,
-                  ffi.Double dt,
-                  ffi.Double t,
-                )
-              >
-            >,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gm_speed_anim');
-  late final _gm_speed_anim = _gm_speed_animPtr
-      .asFunction<
-        void Function(
-          ffi.Pointer<gmBody>,
-          double,
-          ffi.Pointer<
-            ffi.NativeFunction<
-              ffi.Void Function(
-                ffi.Pointer<ffi.Double> value,
-                ffi.Double target,
-                ffi.Double dt,
-                ffi.Double t,
-              )
-            >
-          >,
-          double,
-          double,
-        )
-      >();
-
-  /// @brief Creates a rectangular physics body.
-  /// @param m The mass of the body.
-  /// @param x The x-coordinate of the body's position.
-  /// @param y The y-coordinate of the body's position.
-  /// @param w The width of the body.
-  /// @param h The height of the body.
-  /// @return A new rectangular gmBody instance.
-  gmBody gm_rectangle_body(double m, double x, double y, double w, double h) {
-    return _gm_rectangle_body(m, x, y, w, h);
-  }
-
-  late final _gm_rectangle_bodyPtr =
-      _lookup<
-        ffi.NativeFunction<
-          gmBody Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gm_rectangle_body');
-  late final _gm_rectangle_body = _gm_rectangle_bodyPtr
-      .asFunction<gmBody Function(double, double, double, double, double)>();
-
-  /// @brief Creates a circular physics body.
-  /// @param m The mass of the body.
-  /// @param x The x-coordinate of the body's position.
-  /// @param y The y-coordinate of the body's position.
-  /// @param r The radius of the body.
-  /// @return A new circular gmBody instance.
-  gmBody gm_circle_body(double m, double x, double y, double r) {
-    return _gm_circle_body(m, x, y, r);
-  }
-
-  late final _gm_circle_bodyPtr =
-      _lookup<
-        ffi.NativeFunction<
-          gmBody Function(ffi.Double, ffi.Double, ffi.Double, ffi.Double)
-        >
-      >('gm_circle_body');
-  late final _gm_circle_body = _gm_circle_bodyPtr
-      .asFunction<gmBody Function(double, double, double, double)>();
-
-  /// @brief Checks if a point is contained within a body's collider.
-  /// @param body Pointer to the body to check.
-  /// @param x The x-coordinate of the point.
-  /// @param y The y-coordinate of the point.
-  /// @return 1 if the point is inside the body, 0 otherwise.
-  int gm_body_contains(ffi.Pointer<gmBody> body, double x, double y) {
-    return _gm_body_contains(body, x, y);
-  }
-
-  late final _gm_body_containsPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<gmBody>, ffi.Double, ffi.Double)
-        >
-      >('gm_body_contains');
-  late final _gm_body_contains = _gm_body_containsPtr
-      .asFunction<int Function(ffi.Pointer<gmBody>, double, double)>();
-
   int _gm3_color_clamp(int c) {
     return __gm3_color_clamp(c);
   }
@@ -5087,6 +4473,558 @@ class GamaBindings {
       );
   late final __gm3_color_clamp = __gm3_color_clampPtr
       .asFunction<int Function(int)>();
+
+  late final ffi.Pointer<ffi.Double> __gm_dt = _lookup<ffi.Double>('_gm_dt');
+
+  double get _gm_dt => __gm_dt.value;
+
+  set _gm_dt(double value) => __gm_dt.value = value;
+
+  late final ffi.Pointer<ffi.Double> __gm_t = _lookup<ffi.Double>('_gm_t');
+
+  double get _gm_t => __gm_t.value;
+
+  set _gm_t(double value) => __gm_t.value = value;
+
+  void gapi_set_title(ffi.Pointer<ffi.Char> title) {
+    return _gapi_set_title(title);
+  }
+
+  late final _gapi_set_titlePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
+        'gapi_set_title',
+      );
+  late final _gapi_set_title = _gapi_set_titlePtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+
+  void gapi_resize(int width, int height) {
+    return _gapi_resize(width, height);
+  }
+
+  late final _gapi_resizePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Int32)>>(
+        'gapi_resize',
+      );
+  late final _gapi_resize = _gapi_resizePtr
+      .asFunction<void Function(int, int)>();
+
+  void gapi_set_bg_color(int r, int g, int b, int a) {
+    return _gapi_set_bg_color(r, g, b, a);
+  }
+
+  late final _gapi_set_bg_colorPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Uint8, ffi.Uint8, ffi.Uint8, ffi.Uint8)
+        >
+      >('gapi_set_bg_color');
+  late final _gapi_set_bg_color = _gapi_set_bg_colorPtr
+      .asFunction<void Function(int, int, int, int)>();
+
+  void gapi_fullscreen(int fullscreen) {
+    return _gapi_fullscreen(fullscreen);
+  }
+
+  late final _gapi_fullscreenPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
+        'gapi_fullscreen',
+      );
+  late final _gapi_fullscreen = _gapi_fullscreenPtr
+      .asFunction<void Function(int)>();
+
+  void gapi_log(ffi.Pointer<ffi.Char> message) {
+    return _gapi_log(message);
+  }
+
+  late final _gapi_logPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
+        'gapi_log',
+      );
+  late final _gapi_log = _gapi_logPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+
+  int gapi_init(int width, int height, ffi.Pointer<ffi.Char> title) {
+    return _gapi_init(width, height, title);
+  }
+
+  late final _gapi_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Int32, ffi.Int32, ffi.Pointer<ffi.Char>)
+        >
+      >('gapi_init');
+  late final _gapi_init = _gapi_initPtr
+      .asFunction<int Function(int, int, ffi.Pointer<ffi.Char>)>();
+
+  int gapi_yield(ffi.Pointer<ffi.Double> dt) {
+    return _gapi_yield(dt);
+  }
+
+  late final _gapi_yieldPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Double>)>>(
+        'gapi_yield',
+      );
+  late final _gapi_yield = _gapi_yieldPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Double>)>();
+
+  void gapi_quit() {
+    return _gapi_quit();
+  }
+
+  late final _gapi_quitPtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+    'gapi_quit',
+  );
+  late final _gapi_quit = _gapi_quitPtr.asFunction<void Function()>();
+
+  int gapi_runs() {
+    return _gapi_runs();
+  }
+
+  late final _gapi_runsPtr = _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+    'gapi_runs',
+  );
+  late final _gapi_runs = _gapi_runsPtr.asFunction<int Function()>();
+
+  int gapi_draw_line(
+    double x1,
+    double y1$1,
+    double x2,
+    double y2,
+    double thickness,
+    int r,
+    int g,
+    int b,
+    int a,
+  ) {
+    return _gapi_draw_line(x1, y1$1, x2, y2, thickness, r, g, b, a);
+  }
+
+  late final _gapi_draw_linePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_line');
+  late final _gapi_draw_line = _gapi_draw_linePtr
+      .asFunction<
+        int Function(double, double, double, double, double, int, int, int, int)
+      >();
+
+  int gapi_draw_rect(
+    double x,
+    double y,
+    double w,
+    double h,
+    int cr,
+    int cg,
+    int cb,
+    int ca,
+  ) {
+    return _gapi_draw_rect(x, y, w, h, cr, cg, cb, ca);
+  }
+
+  late final _gapi_draw_rectPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_rect');
+  late final _gapi_draw_rect = _gapi_draw_rectPtr
+      .asFunction<
+        int Function(double, double, double, double, int, int, int, int)
+      >();
+
+  int gapi_draw_rounded_rect(
+    double x,
+    double y,
+    double w,
+    double h,
+    double r,
+    int cr,
+    int cg,
+    int cb,
+    int ca,
+  ) {
+    return _gapi_draw_rounded_rect(x, y, w, h, r, cr, cg, cb, ca);
+  }
+
+  late final _gapi_draw_rounded_rectPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_rounded_rect');
+  late final _gapi_draw_rounded_rect = _gapi_draw_rounded_rectPtr
+      .asFunction<
+        int Function(double, double, double, double, double, int, int, int, int)
+      >();
+
+  int gapi_draw_circle(
+    double center_x,
+    double center_y,
+    double radius,
+    int red,
+    int green,
+    int blue,
+    int alpha,
+  ) {
+    return _gapi_draw_circle(
+      center_x,
+      center_y,
+      radius,
+      red,
+      green,
+      blue,
+      alpha,
+    );
+  }
+
+  late final _gapi_draw_circlePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_circle');
+  late final _gapi_draw_circle = _gapi_draw_circlePtr
+      .asFunction<int Function(double, double, double, int, int, int, int)>();
+
+  int gapi_draw_ellipse(
+    double x,
+    double y,
+    double w,
+    double h,
+    int cr,
+    int cg,
+    int cb,
+    int ca,
+  ) {
+    return _gapi_draw_ellipse(x, y, w, h, cr, cg, cb, ca);
+  }
+
+  late final _gapi_draw_ellipsePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_ellipse');
+  late final _gapi_draw_ellipse = _gapi_draw_ellipsePtr
+      .asFunction<
+        int Function(double, double, double, double, int, int, int, int)
+      >();
+
+  int gapi_draw_triangle(
+    double x1,
+    double y1$1,
+    double x2,
+    double y2,
+    double x3,
+    double y3,
+    int cr,
+    int cg,
+    int cb,
+    int ca,
+  ) {
+    return _gapi_draw_triangle(x1, y1$1, x2, y2, x3, y3, cr, cg, cb, ca);
+  }
+
+  late final _gapi_draw_trianglePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_triangle');
+  late final _gapi_draw_triangle = _gapi_draw_trianglePtr
+      .asFunction<
+        int Function(
+          double,
+          double,
+          double,
+          double,
+          double,
+          double,
+          int,
+          int,
+          int,
+          int,
+        )
+      >();
+
+  int gapi_create_image(
+    ffi.Pointer<ffi.Char> path,
+    ffi.Pointer<ffi.Uint32> width,
+    ffi.Pointer<ffi.Uint32> height,
+  ) {
+    return _gapi_create_image(path, width, height);
+  }
+
+  late final _gapi_create_imagePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Uint32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+          )
+        >
+      >('gapi_create_image');
+  late final _gapi_create_image = _gapi_create_imagePtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Uint32>,
+          ffi.Pointer<ffi.Uint32>,
+        )
+      >();
+
+  int gapi_draw_image(
+    int handle,
+    double x,
+    double y,
+    double width,
+    double height,
+  ) {
+    return _gapi_draw_image(handle, x, y, width, height);
+  }
+
+  late final _gapi_draw_imagePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Uint32,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+          )
+        >
+      >('gapi_draw_image');
+  late final _gapi_draw_image = _gapi_draw_imagePtr
+      .asFunction<int Function(int, double, double, double, double)>();
+
+  int gapi_draw_image_part(
+    int handle,
+    int slice_x,
+    int slice_y,
+    int slice_width,
+    int slice_height,
+    double x,
+    double y,
+    double width,
+    double height,
+  ) {
+    return _gapi_draw_image_part(
+      handle,
+      slice_x,
+      slice_y,
+      slice_width,
+      slice_height,
+      x,
+      y,
+      width,
+      height,
+    );
+  }
+
+  late final _gapi_draw_image_partPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Uint32,
+            ffi.Uint32,
+            ffi.Uint32,
+            ffi.Uint32,
+            ffi.Uint32,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+          )
+        >
+      >('gapi_draw_image_part');
+  late final _gapi_draw_image_part = _gapi_draw_image_partPtr
+      .asFunction<
+        int Function(int, int, int, int, int, double, double, double, double)
+      >();
+
+  int gapi_draw_text(
+    double x,
+    double y,
+    double height,
+    ffi.Pointer<ffi.Char> txt,
+    ffi.Pointer<ffi.Char> font,
+    int style,
+    int cr,
+    int cg,
+    int cb,
+    int ca,
+  ) {
+    return _gapi_draw_text(x, y, height, txt, font, style, cr, cg, cb, ca);
+  }
+
+  late final _gapi_draw_textPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Double,
+            ffi.Double,
+            ffi.Double,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+            ffi.Uint8,
+          )
+        >
+      >('gapi_draw_text');
+  late final _gapi_draw_text = _gapi_draw_textPtr
+      .asFunction<
+        int Function(
+          double,
+          double,
+          double,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          int,
+          int,
+          int,
+          int,
+        )
+      >();
+
+  int gapi_key_down(int t, int k) {
+    return _gapi_key_down(t, k);
+  }
+
+  late final _gapi_key_downPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Char, ffi.Char)>>(
+        'gapi_key_down',
+      );
+  late final _gapi_key_down = _gapi_key_downPtr
+      .asFunction<int Function(int, int)>();
+
+  void gapi_wait_queue() {
+    return _gapi_wait_queue();
+  }
+
+  late final _gapi_wait_queuePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('gapi_wait_queue');
+  late final _gapi_wait_queue = _gapi_wait_queuePtr
+      .asFunction<void Function()>();
+
+  int gapi_mouse_down() {
+    return _gapi_mouse_down();
+  }
+
+  late final _gapi_mouse_downPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gapi_mouse_down');
+  late final _gapi_mouse_down = _gapi_mouse_downPtr
+      .asFunction<int Function()>();
+
+  int gapi_mouse_get(ffi.Pointer<ffi.Double> x, ffi.Pointer<ffi.Double> y) {
+    return _gapi_mouse_get(x, y);
+  }
+
+  late final _gapi_mouse_getPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)
+        >
+      >('gapi_mouse_get');
+  late final _gapi_mouse_get = _gapi_mouse_getPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)
+      >();
+
+  int gapi_get_body_count() {
+    return _gapi_get_body_count();
+  }
+
+  late final _gapi_get_body_countPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gapi_get_body_count');
+  late final _gapi_get_body_count = _gapi_get_body_countPtr
+      .asFunction<int Function()>();
+
+  ffi.Pointer<ffi.Uint8> gapi_get_framebuffer() {
+    return _gapi_get_framebuffer();
+  }
+
+  late final _gapi_get_framebufferPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint8> Function()>>(
+        'gapi_get_framebuffer',
+      );
+  late final _gapi_get_framebuffer = _gapi_get_framebufferPtr
+      .asFunction<ffi.Pointer<ffi.Uint8> Function()>();
+
+  void gapi_update_framebuffer(ffi.Pointer<ffi.Uint8> data, int size) {
+    return _gapi_update_framebuffer(data, size);
+  }
+
+  late final _gapi_update_framebufferPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Uint8>, ffi.Int32)>
+      >('gapi_update_framebuffer');
+  late final _gapi_update_framebuffer = _gapi_update_framebufferPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Uint8>, int)>();
 
   /// @brief Loads an image from a file path.
   /// @param path The file path to the image.
@@ -7397,11 +7335,6 @@ class GamaBindings {
   late final _gm_system_destroy = _gm_system_destroyPtr
       .asFunction<void Function(ffi.Pointer<gmSystem>)>();
 
-  /// @brief Detects collision between two bodies.
-  /// @param a Pointer to the first body.
-  /// @param b Pointer to the second body.
-  /// @return A pointer to a gmCollision structure if collision occurs, NULL
-  /// otherwise.
   ffi.Pointer<gmCollision> gm_collision_detect(
     ffi.Pointer<gmBody> a,
     ffi.Pointer<gmBody> b,
@@ -7641,798 +7574,6 @@ class GamaBindings {
   late final _gm_sleepPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('gm_sleep');
   late final _gm_sleep = _gm_sleepPtr.asFunction<void Function(int)>();
-
-  /// @brief Checks if a key is currently pressed.
-  /// @param t The type of key event ('a' for arrow keys, 'm' for mouse events, 's'
-  /// for special keys, 'c' for character keys).
-  /// @param k The specific key character or identifier.
-  /// @return 1 if the key is pressed, 0 otherwise.
-  int gm_key_down(int t, int k) {
-    return _gm_key_down(t, k);
-  }
-
-  late final _gm_key_downPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Char, ffi.Char)>>(
-        'gm_key_down',
-      );
-  late final _gm_key_down = _gm_key_downPtr
-      .asFunction<int Function(int, int)>();
-
-  /// @brief Converts a character to lowercase if it's an uppercase letter.
-  /// @param k The character to convert.
-  /// @return The lowercase version of the character, or the original if not
-  /// uppercase.
-  int gm_lower_case(int k) {
-    return _gm_lower_case(k);
-  }
-
-  late final _gm_lower_casePtr =
-      _lookup<ffi.NativeFunction<ffi.Char Function(ffi.Char)>>('gm_lower_case');
-  late final _gm_lower_case = _gm_lower_casePtr.asFunction<int Function(int)>();
-
-  /// @brief Converts a character to uppercase if it's a lowercase letter.
-  /// @param k The character to convert.
-  /// @return The uppercase version of the character, or the original if not
-  /// lowercase.
-  int gm_upper_case(int k) {
-    return _gm_upper_case(k);
-  }
-
-  late final _gm_upper_casePtr =
-      _lookup<ffi.NativeFunction<ffi.Char Function(ffi.Char)>>('gm_upper_case');
-  late final _gm_upper_case = _gm_upper_casePtr.asFunction<int Function(int)>();
-
-  /// @brief Decodes a key shortcut into a type and key character.
-  /// @param key The shortcut key to decode.
-  /// @param t Pointer to store the decoded key type.
-  /// @param k Pointer to store the decoded key character.
-  void gm_decode_key_shortcut(
-    int key,
-    ffi.Pointer<ffi.Char> t,
-    ffi.Pointer<ffi.Char> k,
-  ) {
-    return _gm_decode_key_shortcut(key, t, k);
-  }
-
-  late final _gm_decode_key_shortcutPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Char,
-            ffi.Pointer<ffi.Char>,
-            ffi.Pointer<ffi.Char>,
-          )
-        >
-      >('gm_decode_key_shortcut');
-  late final _gm_decode_key_shortcut = _gm_decode_key_shortcutPtr
-      .asFunction<
-        void Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)
-      >();
-
-  /// @brief Encodes a type and key character into a shortcut key.
-  /// @param t The key type ('a' for arrow keys, 'm' for mouse events, 's' for
-  /// special keys, 'c' for character keys).
-  /// @param k The key character.
-  /// @return The encoded shortcut key.
-  int gm_encode_key_shortcut(int t, int k) {
-    return _gm_encode_key_shortcut(t, k);
-  }
-
-  late final _gm_encode_key_shortcutPtr =
-      _lookup<ffi.NativeFunction<ffi.Char Function(ffi.Char, ffi.Char)>>(
-        'gm_encode_key_shortcut',
-      );
-  late final _gm_encode_key_shortcut = _gm_encode_key_shortcutPtr
-      .asFunction<int Function(int, int)>();
-
-  /// @brief Checks if a key is currently pressed using a shortcut key.
-  /// @param key The shortcut key to check.
-  /// @return 1 if the key is pressed, 0 otherwise.
-  int gm_key(int key) {
-    return _gm_key(key);
-  }
-
-  late final _gm_keyPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Char)>>('gm_key');
-  late final _gm_key = _gm_keyPtr.asFunction<int Function(int)>();
-
-  /// @brief Resolves a collision between two bodies by applying appropriate forces
-  /// and corrections.
-  /// @param collision Pointer to the collision to resolve.
-  void gm_collision_resolve(ffi.Pointer<gmCollision> collision) {
-    return _gm_collision_resolve(collision);
-  }
-
-  late final _gm_collision_resolvePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmCollision>)>>(
-        'gm_collision_resolve',
-      );
-  late final _gm_collision_resolve = _gm_collision_resolvePtr
-      .asFunction<void Function(ffi.Pointer<gmCollision>)>();
-
-  /// @brief Updates a single body in the system by integrating its position and
-  /// velocity over time.
-  /// @param sys Pointer to the system containing the body (can be NULL).
-  /// @param body Pointer to the body to update.
-  /// @param dt The time step for the update.
-  void gm_system_update_body_dt(
-    ffi.Pointer<gmSystem> sys,
-    ffi.Pointer<gmBody> body,
-    double dt,
-  ) {
-    return _gm_system_update_body_dt(sys, body, dt);
-  }
-
-  late final _gm_system_update_body_dtPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<gmSystem>,
-            ffi.Pointer<gmBody>,
-            ffi.Double,
-          )
-        >
-      >('gm_system_update_body_dt');
-  late final _gm_system_update_body_dt = _gm_system_update_body_dtPtr
-      .asFunction<
-        void Function(ffi.Pointer<gmSystem>, ffi.Pointer<gmBody>, double)
-      >();
-
-  /// @brief Updates a single body by integrating its position and
-  /// velocity over time.
-  /// @param body Pointer to the body to update.
-  /// @param dt The time step for the update.
-  void gm_body_update_dt(ffi.Pointer<gmBody> body, double dt) {
-    return _gm_body_update_dt(body, dt);
-  }
-
-  late final _gm_body_update_dtPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>, ffi.Double)>
-      >('gm_body_update_dt');
-  late final _gm_body_update_dt = _gm_body_update_dtPtr
-      .asFunction<void Function(ffi.Pointer<gmBody>, double)>();
-
-  /// @brief Updates a single body by integrating its position and
-  /// velocity over time.
-  /// @param body Pointer to the body to update.
-  void gm_body_update(ffi.Pointer<gmBody> body) {
-    return _gm_body_update(body);
-  }
-
-  late final _gm_body_updatePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmBody>)>>(
-        'gm_body_update',
-      );
-  late final _gm_body_update = _gm_body_updatePtr
-      .asFunction<void Function(ffi.Pointer<gmBody>)>();
-
-  /// @brief Updates the physics system with collision detection at specified time
-  /// intervals.
-  /// @param sys Pointer to the system to update.
-  /// @param unit The time unit for sub-step calculations.
-  /// @param dt The total time step to simulate.
-  void gm_system_update_dt(ffi.Pointer<gmSystem> sys, double unit, double dt) {
-    return _gm_system_update_dt(sys, unit, dt);
-  }
-
-  late final _gm_system_update_dtPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<gmSystem>, ffi.Double, ffi.Double)
-        >
-      >('gm_system_update_dt');
-  late final _gm_system_update_dt = _gm_system_update_dtPtr
-      .asFunction<void Function(ffi.Pointer<gmSystem>, double, double)>();
-
-  /// @brief Gets the collision information for two specific bodies in a system.
-  /// @param collision Pointer to the collision where to copy the result, or NULL.
-  /// @param sys Pointer to the system to search in.
-  /// @param a Pointer to the first body.
-  /// @param b Pointer to the second body.
-  /// @return 1 if it found a collision else 0.
-  int gm_system_get_collision(
-    ffi.Pointer<gmCollision> collision,
-    ffi.Pointer<gmSystem> sys,
-    ffi.Pointer<gmBody> a,
-    ffi.Pointer<gmBody> b,
-  ) {
-    return _gm_system_get_collision(collision, sys, a, b);
-  }
-
-  late final _gm_system_get_collisionPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Pointer<gmCollision>,
-            ffi.Pointer<gmSystem>,
-            ffi.Pointer<gmBody>,
-            ffi.Pointer<gmBody>,
-          )
-        >
-      >('gm_system_get_collision');
-  late final _gm_system_get_collision = _gm_system_get_collisionPtr
-      .asFunction<
-        int Function(
-          ffi.Pointer<gmCollision>,
-          ffi.Pointer<gmSystem>,
-          ffi.Pointer<gmBody>,
-          ffi.Pointer<gmBody>,
-        )
-      >();
-
-  /// @brief Default time step for physics system frame updates.
-  late final ffi.Pointer<ffi.Double> _gm_system_frame_time =
-      _lookup<ffi.Double>('gm_system_frame_time');
-
-  double get gm_system_frame_time => _gm_system_frame_time.value;
-
-  set gm_system_frame_time(double value) => _gm_system_frame_time.value = value;
-
-  /// @brief Calculates the penetration depth and normal vector for a collision
-  /// between two bodies.
-  /// @param a Pointer to the first body.
-  /// @param b Pointer to the second body.
-  /// @param normal_x Pointer to store the x component of the collision normal (can
-  /// be NULL).
-  /// @param normal_y Pointer to store the y component of the collision normal (can
-  /// be NULL).
-  /// @return The penetration depth between the bodies.
-  double gm_collision_penetration_normals(
-    ffi.Pointer<gmBody> a,
-    ffi.Pointer<gmBody> b,
-    ffi.Pointer<ffi.Double> normal_x,
-    ffi.Pointer<ffi.Double> normal_y,
-  ) {
-    return _gm_collision_penetration_normals(a, b, normal_x, normal_y);
-  }
-
-  late final _gm_collision_penetration_normalsPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Double Function(
-            ffi.Pointer<gmBody>,
-            ffi.Pointer<gmBody>,
-            ffi.Pointer<ffi.Double>,
-            ffi.Pointer<ffi.Double>,
-          )
-        >
-      >('gm_collision_penetration_normals');
-  late final _gm_collision_penetration_normals =
-      _gm_collision_penetration_normalsPtr
-          .asFunction<
-            double Function(
-              ffi.Pointer<gmBody>,
-              ffi.Pointer<gmBody>,
-              ffi.Pointer<ffi.Double>,
-              ffi.Pointer<ffi.Double>,
-            )
-          >();
-
-  /// @brief Calculates the penetration depth for a collision between two bodies.
-  /// @param a Pointer to the first body.
-  /// @param b Pointer to the second body.
-  /// @return The penetration depth between the bodies.
-  double gm_collision_penetration(
-    ffi.Pointer<gmBody> a,
-    ffi.Pointer<gmBody> b,
-  ) {
-    return _gm_collision_penetration(a, b);
-  }
-
-  late final _gm_collision_penetrationPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<gmBody>, ffi.Pointer<gmBody>)
-        >
-      >('gm_collision_penetration');
-  late final _gm_collision_penetration = _gm_collision_penetrationPtr
-      .asFunction<double Function(ffi.Pointer<gmBody>, ffi.Pointer<gmBody>)>();
-
-  /// @brief Creates a sprite animation that sequentially browses through frames.
-  /// @param n_sprites The number of sprites/frames in the animation.
-  /// @param interval The time interval between frames.
-  /// @return A new gmSpriteAnim instance.
-  gmSpriteAnim gm_sprite_anim_browse(int n_sprites, double interval) {
-    return _gm_sprite_anim_browse(n_sprites, interval);
-  }
-
-  late final _gm_sprite_anim_browsePtr =
-      _lookup<ffi.NativeFunction<gmSpriteAnim Function(ffi.Int, ffi.Double)>>(
-        'gm_sprite_anim_browse',
-      );
-  late final _gm_sprite_anim_browse = _gm_sprite_anim_browsePtr
-      .asFunction<gmSpriteAnim Function(int, double)>();
-
-  /// @brief Creates a sprite animation based on a pattern string.
-  /// @param interval The time interval between frames.
-  /// @param pattern A string where each character represents a frame index (a=0, b=1, etc.).
-  /// @return A new gmSpriteAnim instance.
-  gmSpriteAnim gm_sprite_anim_create(
-    double interval,
-    ffi.Pointer<ffi.Char> pattern,
-  ) {
-    return _gm_sprite_anim_create(interval, pattern);
-  }
-
-  late final _gm_sprite_anim_createPtr =
-      _lookup<
-        ffi.NativeFunction<
-          gmSpriteAnim Function(ffi.Double, ffi.Pointer<ffi.Char>)
-        >
-      >('gm_sprite_anim_create');
-  late final _gm_sprite_anim_create = _gm_sprite_anim_createPtr
-      .asFunction<gmSpriteAnim Function(double, ffi.Pointer<ffi.Char>)>();
-
-  /// @brief Creates a new sprite from an image with a specified number of frames.
-  /// @param img The image containing the sprite sheet.
-  /// @param n_frames The number of frames in the sprite sheet.
-  /// @return A new gmSprite instance.
-  gmSprite gm_sprite_create(gmImage img, int n_frames) {
-    return _gm_sprite_create(img, n_frames);
-  }
-
-  late final _gm_sprite_createPtr =
-      _lookup<ffi.NativeFunction<gmSprite Function(gmImage, ffi.Int)>>(
-        'gm_sprite_create',
-      );
-  late final _gm_sprite_create = _gm_sprite_createPtr
-      .asFunction<gmSprite Function(gmImage, int)>();
-
-  /// @brief Updates the sprite's animation state based on elapsed time.
-  /// @param sprite Pointer to the sprite to update.
-  /// @param dt Delta time since the last update.
-  void gm_sprite_update_dt(ffi.Pointer<gmSprite> sprite, double dt) {
-    return _gm_sprite_update_dt(sprite, dt);
-  }
-
-  late final _gm_sprite_update_dtPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<gmSprite>, ffi.Double)>
-      >('gm_sprite_update_dt');
-  late final _gm_sprite_update_dt = _gm_sprite_update_dtPtr
-      .asFunction<void Function(ffi.Pointer<gmSprite>, double)>();
-
-  /// @brief Draws the current frame of a sprite at the specified position and size.
-  /// @param sprite Pointer to the sprite to draw.
-  /// @param x The x-coordinate to draw at.
-  /// @param y The y-coordinate to draw at.
-  /// @param width The width to draw the sprite.
-  /// @param height The height to draw the sprite.
-  void gm_sprite_draw(
-    ffi.Pointer<gmSprite> sprite,
-    double x,
-    double y,
-    double width,
-    double height,
-  ) {
-    return _gm_sprite_draw(sprite, x, y, width, height);
-  }
-
-  late final _gm_sprite_drawPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<gmSprite>,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-          )
-        >
-      >('gm_sprite_draw');
-  late final _gm_sprite_draw = _gm_sprite_drawPtr
-      .asFunction<
-        void Function(ffi.Pointer<gmSprite>, double, double, double, double)
-      >();
-
-  /// @brief Creates a new sprite by loading an image from a file.
-  /// @param path The file path to the sprite sheet image.
-  /// @param n_frames The number of frames in the sprite sheet.
-  /// @return A new gmSprite instance.
-  gmSprite gm_sprite_open(ffi.Pointer<ffi.Char> path, int n_frames) {
-    return _gm_sprite_open(path, n_frames);
-  }
-
-  late final _gm_sprite_openPtr =
-      _lookup<
-        ffi.NativeFunction<gmSprite Function(ffi.Pointer<ffi.Char>, ffi.Int)>
-      >('gm_sprite_open');
-  late final _gm_sprite_open = _gm_sprite_openPtr
-      .asFunction<gmSprite Function(ffi.Pointer<ffi.Char>, int)>();
-
-  /// @brief Global button theme instance with default values.
-  late final ffi.Pointer<gmwButtonTheme> _gmwButton = _lookup<gmwButtonTheme>(
-    'gmwButton',
-  );
-
-  gmwButtonTheme get gmwButton => _gmwButton.ref;
-
-  /// @brief Creates and renders an interactive button widget.
-  /// @param x The x-coordinate of the button's center.
-  /// @param y The y-coordinate of the button's center.
-  /// @param width The width of the button.
-  /// @param height The height of the button.
-  /// @param text The text to display on the button (can be NULL).
-  /// @param fontsize The size of the text font.
-  /// @return 1 if the button is currently hovered, 0 otherwise.
-  int gmw_button(
-    double x,
-    double y,
-    double width,
-    double height,
-    ffi.Pointer<ffi.Char> text,
-    double fontsize,
-  ) {
-    return _gmw_button(x, y, width, height, text, fontsize);
-  }
-
-  late final _gmw_buttonPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<ffi.Char>,
-            ffi.Double,
-          )
-        >
-      >('gmw_button');
-  late final _gmw_button = _gmw_buttonPtr
-      .asFunction<
-        int Function(
-          double,
-          double,
-          double,
-          double,
-          ffi.Pointer<ffi.Char>,
-          double,
-        )
-      >();
-
-  /// @brief Global joystick theme instance with default values.
-  late final ffi.Pointer<gmwJoystickTheme> _gmwJoystick =
-      _lookup<gmwJoystickTheme>('gmwJoystick');
-
-  gmwJoystickTheme get gmwJoystick => _gmwJoystick.ref;
-
-  /// @brief Creates and renders an animated joystick widget that can be
-  /// manipulated with the mouse.
-  /// @param x The x-coordinate of the joystick's center.
-  /// @param y The y-coordinate of the joystick's center.
-  /// @param radius The radius of the joystick base.
-  /// @param pos Pointer to a gmPos structure to store the joystick's logical
-  /// position (-1 to 1).
-  /// @param vpos Pointer to a gmPos structure for animated visual position (can be
-  /// NULL to use pos).
-  /// @return 1 if the joystick is currently hovered, 0 otherwise.
-  int gm_joystick_anim(
-    double x,
-    double y,
-    double radius,
-    ffi.Pointer<gmPos> pos,
-    ffi.Pointer<gmPos> vpos,
-  ) {
-    return _gm_joystick_anim(x, y, radius, pos, vpos);
-  }
-
-  late final _gm_joystick_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<gmPos>,
-            ffi.Pointer<gmPos>,
-          )
-        >
-      >('gm_joystick_anim');
-  late final _gm_joystick_anim = _gm_joystick_animPtr
-      .asFunction<
-        int Function(
-          double,
-          double,
-          double,
-          ffi.Pointer<gmPos>,
-          ffi.Pointer<gmPos>,
-        )
-      >();
-
-  /// @brief Creates and renders a joystick widget that can be manipulated with the
-  /// mouse.
-  /// @param x The x-coordinate of the joystick's center.
-  /// @param y The y-coordinate of the joystick's center.
-  /// @param radius The radius of the joystick base.
-  /// @param pos Pointer to a gmPos structure to store the joystick's logical
-  /// position (-1 to 1).
-  /// @return 1 if the joystick is currently hovered, 0 otherwise.
-  int gmw_joystick(double x, double y, double radius, ffi.Pointer<gmPos> pos) {
-    return _gmw_joystick(x, y, radius, pos);
-  }
-
-  late final _gmw_joystickPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<gmPos>,
-          )
-        >
-      >('gmw_joystick');
-  late final _gmw_joystick = _gmw_joystickPtr
-      .asFunction<int Function(double, double, double, ffi.Pointer<gmPos>)>();
-
-  /// @brief Global scale theme instance with default values.
-  late final ffi.Pointer<gmwScaleTheme> _gmwScale = _lookup<gmwScaleTheme>(
-    'gmwScale',
-  );
-
-  gmwScaleTheme get gmwScale => _gmwScale.ref;
-
-  /// @brief Creates and renders an animated scale (slider) widget that can be
-  /// manipulated with the mouse.
-  /// @param x The x-coordinate of the scale's center.
-  /// @param y The y-coordinate of the scale's center.
-  /// @param width The width of the scale track.
-  /// @param height The height of the scale track.
-  /// @param value Pointer to a double to store the current scale value (0.0
-  /// to 1.0).
-  /// @param anim Pointer to a double for animated visual position (can be NULL to
-  /// use value).
-  /// @return 1 if the scale is currently being actively manipulated (mouse down),
-  /// 0 otherwise.
-  int gmw_scale_anim(
-    double x,
-    double y,
-    double width,
-    double height,
-    ffi.Pointer<ffi.Double> value,
-    ffi.Pointer<ffi.Double> anim,
-  ) {
-    return _gmw_scale_anim(x, y, width, height, value, anim);
-  }
-
-  late final _gmw_scale_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<ffi.Double>,
-            ffi.Pointer<ffi.Double>,
-          )
-        >
-      >('gmw_scale_anim');
-  late final _gmw_scale_anim = _gmw_scale_animPtr
-      .asFunction<
-        int Function(
-          double,
-          double,
-          double,
-          double,
-          ffi.Pointer<ffi.Double>,
-          ffi.Pointer<ffi.Double>,
-        )
-      >();
-
-  /// @brief Global switch theme instance with default values.
-  late final ffi.Pointer<gmwSwitchTheme> _gmwSwitch = _lookup<gmwSwitchTheme>(
-    'gmwSwitch',
-  );
-
-  gmwSwitchTheme get gmwSwitch => _gmwSwitch.ref;
-
-  /// @brief Creates and renders an animated switch widget that toggles on click.
-  /// @param x The x-coordinate of the switch's center.
-  /// @param y The y-coordinate of the switch's center.
-  /// @param width The width of the switch.
-  /// @param height The height of the switch.
-  /// @param value Pointer to an integer to store the switch state (0=off, 1=on).
-  /// @param anim Pointer to a double for animated visual position (can be NULL to
-  /// use value).
-  /// @return 1 if the switch was clicked (toggled), 0 otherwise.
-  int gmw_switch_anim(
-    double x,
-    double y,
-    double width,
-    double height,
-    ffi.Pointer<ffi.Int> value,
-    ffi.Pointer<ffi.Double> anim,
-  ) {
-    return _gmw_switch_anim(x, y, width, height, value, anim);
-  }
-
-  late final _gmw_switch_animPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<ffi.Int>,
-            ffi.Pointer<ffi.Double>,
-          )
-        >
-      >('gmw_switch_anim');
-  late final _gmw_switch_anim = _gmw_switch_animPtr
-      .asFunction<
-        int Function(
-          double,
-          double,
-          double,
-          double,
-          ffi.Pointer<ffi.Int>,
-          ffi.Pointer<ffi.Double>,
-        )
-      >();
-
-  /// @brief Creates and renders a switch widget that toggles on click.
-  /// @param x The x-coordinate of the switch's center.
-  /// @param y The y-coordinate of the switch's center.
-  /// @param width The width of the switch.
-  /// @param height The height of the switch.
-  /// @param value Pointer to an integer to store the switch state (0=off, 1=on).
-  /// @return 1 if the switch was clicked (toggled), 0 otherwise.
-  int gmw_switch(
-    double x,
-    double y,
-    double width,
-    double height,
-    ffi.Pointer<ffi.Int> value,
-  ) {
-    return _gmw_switch(x, y, width, height, value);
-  }
-
-  late final _gmw_switchPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Int Function(
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Double,
-            ffi.Pointer<ffi.Int>,
-          )
-        >
-      >('gmw_switch');
-  late final _gmw_switch = _gmw_switchPtr
-      .asFunction<
-        int Function(double, double, double, double, ffi.Pointer<ffi.Int>)
-      >();
-
-  /// @brief Internal cache array for widget themes.
-  late final ffi.Pointer<gmwThemeCache> __theme_cache = _lookup<gmwThemeCache>(
-    '_theme_cache',
-  );
-
-  ffi.Pointer<gmwThemeCache> get _theme_cache => __theme_cache;
-
-  /// @brief Current index in the theme cache array.
-  late final ffi.Pointer<ffi.Short> _gm_theme_cache_index = _lookup<ffi.Short>(
-    'gm_theme_cache_index',
-  );
-
-  int get gm_theme_cache_index => _gm_theme_cache_index.value;
-
-  set gm_theme_cache_index(int value) => _gm_theme_cache_index.value = value;
-
-  /// @brief Saves the current widget themes to the theme cache.
-  /// @return A pointer to the saved theme cache entry, or NULL if the cache is full.
-  ffi.Pointer<gmwThemeCache> gmw_save() {
-    return _gmw_save();
-  }
-
-  late final _gmw_savePtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<gmwThemeCache> Function()>>(
-        'gmw_save',
-      );
-  late final _gmw_save = _gmw_savePtr
-      .asFunction<ffi.Pointer<gmwThemeCache> Function()>();
-
-  /// @brief Restores the previous widget themes from the theme cache.
-  void gmw_restore() {
-    return _gmw_restore();
-  }
-
-  late final _gmw_restorePtr = _lookup<ffi.NativeFunction<ffi.Void Function()>>(
-    'gmw_restore',
-  );
-  late final _gmw_restore = _gmw_restorePtr.asFunction<void Function()>();
-
-  ffi.Pointer<ffi.Void> memalign(int __alignment, int __size) {
-    return _memalign(__alignment, __size);
-  }
-
-  late final _memalignPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>
-      >('memalign');
-  late final _memalign = _memalignPtr
-      .asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
-
-  ffi.Pointer<ffi.Void> pvalloc(int __size) {
-    return _pvalloc(__size);
-  }
-
-  late final _pvallocPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size)>>(
-        'pvalloc',
-      );
-  late final _pvalloc = _pvallocPtr
-      .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
-
-  mallinfo$1 mallinfo() {
-    return _mallinfo();
-  }
-
-  late final _mallinfoPtr = _lookup<ffi.NativeFunction<mallinfo$1 Function()>>(
-    'mallinfo',
-  );
-  late final _mallinfo = _mallinfoPtr.asFunction<mallinfo$1 Function()>();
-
-  mallinfo2$1 mallinfo2() {
-    return _mallinfo2();
-  }
-
-  late final _mallinfo2Ptr =
-      _lookup<ffi.NativeFunction<mallinfo2$1 Function()>>('mallinfo2');
-  late final _mallinfo2 = _mallinfo2Ptr.asFunction<mallinfo2$1 Function()>();
-
-  int mallopt(int __param, int __val) {
-    return _mallopt(__param, __val);
-  }
-
-  late final _malloptPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>(
-        'mallopt',
-      );
-  late final _mallopt = _malloptPtr.asFunction<int Function(int, int)>();
-
-  int malloc_trim(int __pad) {
-    return _malloc_trim(__pad);
-  }
-
-  late final _malloc_trimPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Size)>>('malloc_trim');
-  late final _malloc_trim = _malloc_trimPtr.asFunction<int Function(int)>();
-
-  int malloc_usable_size(ffi.Pointer<ffi.Void> __ptr) {
-    return _malloc_usable_size(__ptr);
-  }
-
-  late final _malloc_usable_sizePtr =
-      _lookup<ffi.NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Void>)>>(
-        'malloc_usable_size',
-      );
-  late final _malloc_usable_size = _malloc_usable_sizePtr
-      .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
-
-  void malloc_stats() {
-    return _malloc_stats();
-  }
-
-  late final _malloc_statsPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('malloc_stats');
-  late final _malloc_stats = _malloc_statsPtr.asFunction<void Function()>();
-
-  int malloc_info(int __options, ffi.Pointer<FILE> __fp) {
-    return _malloc_info(__options, __fp);
-  }
-
-  late final _malloc_infoPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<FILE>)>>(
-        'malloc_info',
-      );
-  late final _malloc_info = _malloc_infoPtr
-      .asFunction<int Function(int, ffi.Pointer<FILE>)>();
 }
 
 typedef __u_char = ffi.UnsignedChar;
@@ -8564,6 +7705,15 @@ typedef float_t = ffi.Float;
 typedef Dartfloat_t = double;
 typedef double_t = ffi.Double;
 typedef Dartdouble_t = double;
+
+final class gmPos extends ffi.Struct {
+  @ffi.Double()
+  external double x;
+
+  @ffi.Double()
+  external double y;
+}
+
 typedef int_least8_t = __int_least8_t;
 typedef int_least16_t = __int_least16_t;
 typedef int_least32_t = __int_least32_t;
@@ -8591,14 +7741,6 @@ typedef Dartuint_fast64_t = int;
 typedef intmax_t = __intmax_t;
 typedef uintmax_t = __uintmax_t;
 
-final class gmPos extends ffi.Struct {
-  @ffi.Double()
-  external double x;
-
-  @ffi.Double()
-  external double y;
-}
-
 final class _gmMouse extends ffi.Struct {
   external gmPos position;
 
@@ -8611,6 +7753,76 @@ final class _gmMouse extends ffi.Struct {
 
   @ffi.Uint8()
   external int down;
+}
+
+/// @brief Enum to define the type of collider for a physics body.
+enum gmColliderType {
+  /// < Circular collider
+  GM_COLLIDER_CIRCLE(0),
+
+  /// < Rectangular collider
+  GM_COLLIDER_RECT(1);
+
+  final int value;
+  const gmColliderType(this.value);
+
+  static gmColliderType fromValue(int value) => switch (value) {
+    0 => GM_COLLIDER_CIRCLE,
+    1 => GM_COLLIDER_RECT,
+    _ => throw ArgumentError('Unknown value for gmColliderType: $value'),
+  };
+}
+
+/// @brief Structure representing a physics body with properties for collision
+/// and movement.
+final class gmBody extends ffi.Struct {
+  /// < Whether the body is active in the physics simulation
+  @ffi.Uint8()
+  external int is_active;
+
+  /// < Whether the body is static (immovable)
+  @ffi.Uint8()
+  external int is_static;
+
+  /// < Type of collider (rectangle or circle)
+  @ffi.UnsignedInt()
+  external int collider_typeAsInt;
+
+  gmColliderType get collider_type =>
+      gmColliderType.fromValue(collider_typeAsInt);
+
+  /// < Current position of the body
+  external gmPos position;
+
+  /// < Current velocity of the body
+  external gmPos velocity;
+
+  /// < Current acceleration of the body
+  external gmPos acceleration;
+
+  /// < Dimensions of the body (width/height for
+  /// rectangles, radius for circles)
+  @ffi.Double()
+  external double width;
+
+  @ffi.Double()
+  external double height;
+
+  @ffi.Double()
+  external double radius;
+
+  /// < Mass of the body
+  @ffi.Double()
+  external double mass;
+
+  /// < Bounciness of the body (0.0 = no bounce, 1.0+ =
+  /// bounce)
+  @ffi.Double()
+  external double restitution;
+
+  /// < Friction coefficient (not currently used in the code)
+  @ffi.Double()
+  external double friction;
 }
 
 final class div_t extends ffi.Struct {
@@ -8713,7 +7925,7 @@ typedef blkcnt_t = __blkcnt_t;
 typedef fsblkcnt_t = __fsblkcnt_t;
 typedef fsfilcnt_t = __fsfilcnt_t;
 
-final class UnnamedStruct$13 extends ffi.Struct {
+final class UnnamedStruct$2 extends ffi.Struct {
   @ffi.UnsignedInt()
   external int __low;
 
@@ -8725,7 +7937,7 @@ final class __atomic_wide_counter extends ffi.Union {
   @ffi.UnsignedLongLong()
   external int __value64;
 
-  external UnnamedStruct$13 __value32;
+  external UnnamedStruct$2 __value32;
 }
 
 final class __pthread_internal_list extends ffi.Struct {
@@ -8967,76 +8179,6 @@ typedef Dart__compar_fn_tFunction =
     int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>);
 typedef __compar_fn_t = ffi.Pointer<ffi.NativeFunction<__compar_fn_tFunction>>;
 
-/// @brief Enum to define the type of collider for a physics body.
-enum gmColliderType {
-  /// < Circular collider
-  GM_COLLIDER_CIRCLE(0),
-
-  /// < Rectangular collider
-  GM_COLLIDER_RECT(1);
-
-  final int value;
-  const gmColliderType(this.value);
-
-  static gmColliderType fromValue(int value) => switch (value) {
-    0 => GM_COLLIDER_CIRCLE,
-    1 => GM_COLLIDER_RECT,
-    _ => throw ArgumentError('Unknown value for gmColliderType: $value'),
-  };
-}
-
-/// @brief Structure representing a physics body with properties for collision
-/// and movement.
-final class gmBody extends ffi.Struct {
-  /// < Whether the body is active in the physics simulation
-  @ffi.Uint8()
-  external int is_active;
-
-  /// < Whether the body is static (immovable)
-  @ffi.Uint8()
-  external int is_static;
-
-  /// < Type of collider (rectangle or circle)
-  @ffi.UnsignedInt()
-  external int collider_typeAsInt;
-
-  gmColliderType get collider_type =>
-      gmColliderType.fromValue(collider_typeAsInt);
-
-  /// < Current position of the body
-  external gmPos position;
-
-  /// < Current velocity of the body
-  external gmPos velocity;
-
-  /// < Current acceleration of the body
-  external gmPos acceleration;
-
-  /// < Dimensions of the body (width/height for
-  /// rectangles, radius for circles)
-  @ffi.Double()
-  external double width;
-
-  @ffi.Double()
-  external double height;
-
-  @ffi.Double()
-  external double radius;
-
-  /// < Mass of the body
-  @ffi.Double()
-  external double mass;
-
-  /// < Bounciness of the body (0.0 = no bounce, 1.0+ =
-  /// bounce)
-  @ffi.Double()
-  external double restitution;
-
-  /// < Friction coefficient (not currently used in the code)
-  @ffi.Double()
-  external double friction;
-}
-
 /// @brief Type definition for color values in RGBA format.
 typedef gmColor = ffi.UnsignedInt;
 typedef DartgmColor = int;
@@ -9207,7 +8349,7 @@ final class gmCollision extends ffi.Struct {
 
 typedef gmSystem = gm_system;
 
-final class UnnamedStruct$11 extends ffi.Struct {
+final class UnnamedStruct extends ffi.Struct {
   /// < Background color when focused
   @gmColor()
   external int background;
@@ -9221,7 +8363,7 @@ final class UnnamedStruct$11 extends ffi.Struct {
   external double scale;
 }
 
-final class UnnamedStruct$12 extends ffi.Struct {
+final class UnnamedStruct$1 extends ffi.Struct {
   /// < Background color when inactive
   @gmColor()
   external int background;
@@ -9253,419 +8395,13 @@ final class gmwFrameTheme extends ffi.Struct {
   @ffi.Double()
   external double scale;
 
-  external UnnamedStruct$11 focussed;
+  external UnnamedStruct focussed;
 
-  external UnnamedStruct$12 inactive;
+  external UnnamedStruct$1 inactive;
 
   /// < Width of the frame border
   @ffi.Double()
   external double border_width;
-}
-
-/// @brief Structure representing a sprite animation sequence.
-final class gmSpriteAnim extends ffi.Struct {
-  /// < Time interval between animation frames
-  @ffi.Double()
-  external double interval;
-
-  /// < Array of frame indices in the animation sequence
-  @ffi.Array.multi([10])
-  external ffi.Array<ffi.Int> anim;
-
-  /// < Number of frames in the animation
-  @ffi.Size()
-  external int length;
-}
-
-/// @brief Structure representing a sprite with animation capabilities.
-final class gmSprite extends ffi.Struct {
-  /// < Internal time accumulator for animation timing
-  @ffi.Double()
-  external double _backlog_t;
-
-  /// < Animation sequence for the sprite
-  external gmSpriteAnim animation;
-
-  /// < Total number of frames in the sprite sheet
-  @ffi.Size()
-  external int n_frames;
-
-  /// < Current frame in the animation sequence
-  @ffi.Size()
-  external int animation_frame;
-
-  /// < Current actual frame to display
-  @ffi.Size()
-  external int _frame;
-
-  /// < The image containing the sprite sheet
-  external gmImage image;
-}
-
-final class UnnamedStruct extends ffi.Struct {
-  /// < Background color when focused/hovered
-  @gmColor()
-  external int background;
-
-  /// < Border color when focused/hovered
-  @gmColor()
-  external int border;
-
-  /// < Scale when focused/hovered
-  @ffi.Double()
-  external double scale;
-
-  /// < Text color when focused/hovered
-  @gmColor()
-  external int text;
-}
-
-final class UnnamedStruct$1 extends ffi.Struct {
-  /// < Background color when active/pressed
-  @gmColor()
-  external int background;
-
-  /// < Border color when active/pressed
-  @gmColor()
-  external int border;
-
-  /// < Scale when active/pressed
-  @ffi.Double()
-  external double scale;
-
-  /// < Text color when active/pressed
-  @gmColor()
-  external int text;
-}
-
-final class UnnamedStruct$2 extends ffi.Struct {
-  /// < Background color when disabled
-  @gmColor()
-  external int background;
-
-  /// < Border color when disabled
-  @gmColor()
-  external int border;
-
-  /// < Text color when disabled
-  @gmColor()
-  external int text;
-}
-
-/// @brief Structure defining the visual theme for a button widget.
-final class gmwButtonTheme extends ffi.Struct {
-  /// < Whether the button is enabled
-  @ffi.Int()
-  external int enabled;
-
-  /// < Default scale of the button
-  @ffi.Double()
-  external double scale;
-
-  /// < Background color when normal
-  @gmColor()
-  external int background;
-
-  /// < Border color when normal
-  @gmColor()
-  external int border;
-
-  /// < Text color when normal
-  @gmColor()
-  external int text;
-
-  external UnnamedStruct focussed;
-
-  external UnnamedStruct$1 active;
-
-  external UnnamedStruct$2 disabled;
-
-  /// < Thickness of the button border
-  @ffi.Double()
-  external double border_thickness;
-
-  /// < Font used for button text
-  external ffi.Pointer<ffi.Char> font;
-}
-
-final class UnnamedStruct$9 extends ffi.Struct {
-  /// < Scale factor when focused/hovered
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when focused/hovered
-  @gmColor()
-  external int border;
-}
-
-final class UnnamedStruct$10 extends ffi.Struct {
-  /// < Scale factor when active pressed
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when active pressed
-  @gmColor()
-  external int border;
-}
-
-/// @brief Structure defining the visual theme for a joystick widget.
-final class gmwJoystickTheme extends ffi.Struct {
-  /// < Whether the joystick is enabled
-  @ffi.Int()
-  external int enabled;
-
-  /// < Overall joystick size scale
-  @ffi.Double()
-  external double scale;
-
-  /// < Circle background color
-  @gmColor()
-  external int background;
-
-  /// < Border color
-  @gmColor()
-  external int border;
-
-  external UnnamedStruct$9 focussed;
-
-  external UnnamedStruct$10 active;
-
-  /// < Knob color
-  @gmColor()
-  external int knob;
-
-  /// < Knob border color
-  @gmColor()
-  external int knob_border;
-
-  /// < Width of the circle border
-  @ffi.Double()
-  external double border_width;
-}
-
-final class UnnamedStruct$7 extends ffi.Struct {
-  /// < Scale factor when focused/hovered
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when focused/hovered
-  @gmColor()
-  external int border;
-}
-
-final class UnnamedStruct$8 extends ffi.Struct {
-  /// < Scale factor when active pressed
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when active pressed
-  @gmColor()
-  external int border;
-}
-
-/// @brief Structure defining the visual theme for a scale (slider) widget.
-final class gmwScaleTheme extends ffi.Struct {
-  /// < Whether the scale is enabled
-  @ffi.Int()
-  external int enabled;
-
-  /// < Overall widget scale
-  @ffi.Double()
-  external double scale;
-
-  /// < Track background color
-  @gmColor()
-  external int background;
-
-  /// < Track border color
-  @gmColor()
-  external int border;
-
-  external UnnamedStruct$7 focussed;
-
-  external UnnamedStruct$8 active;
-
-  /// < Knob color
-  @gmColor()
-  external int knob;
-
-  /// < Knob border color
-  @gmColor()
-  external int knob_border;
-
-  /// < Track border thickness
-  @ffi.Double()
-  external double border_width;
-
-  /// < Step size for discrete values (0 = allow any value)
-  @ffi.Double()
-  external double step;
-}
-
-final class UnnamedStruct$3 extends ffi.Struct {
-  /// < Background color when switched off
-  @gmColor()
-  external int background;
-
-  /// < Border color when switched off
-  @gmColor()
-  external int border;
-
-  /// < Knob color when switched off
-  @gmColor()
-  external int knob;
-
-  /// < Knob border color when switched off
-  @gmColor()
-  external int knob_border;
-}
-
-final class UnnamedStruct$4 extends ffi.Struct {
-  /// < Background color when switched on
-  @gmColor()
-  external int background;
-
-  /// < Border color when switched on
-  @gmColor()
-  external int border;
-
-  /// < Knob color when switched on
-  @gmColor()
-  external int knob;
-
-  /// < Knob border color when switched on
-  @gmColor()
-  external int knob_border;
-}
-
-final class UnnamedStruct$5 extends ffi.Struct {
-  /// < Scale factor when focused/hovered
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when focused/hovered
-  @gmColor()
-  external int border;
-}
-
-final class UnnamedStruct$6 extends ffi.Struct {
-  /// < Scale factor when active pressed
-  @ffi.Double()
-  external double scale;
-
-  /// < Border color when active pressed
-  @gmColor()
-  external int border;
-}
-
-/// @brief Structure defining the visual theme for a switch widget.
-final class gmwSwitchTheme extends ffi.Struct {
-  /// < Whether the switch is enabled
-  @ffi.Int()
-  external int enabled;
-
-  /// < Default scale of the switch
-  @ffi.Double()
-  external double scale;
-
-  external UnnamedStruct$3 off;
-
-  external UnnamedStruct$4 on;
-
-  external UnnamedStruct$5 focussed;
-
-  external UnnamedStruct$6 active;
-
-  /// < Width of the switch border
-  @ffi.Double()
-  external double border_width;
-}
-
-/// @brief Structure containing all widget themes for caching purposes.
-final class gmwThemeCache extends ffi.Struct {
-  /// < Theme for button widgets
-  external gmwButtonTheme button;
-
-  /// < Theme for switch widgets
-  external gmwSwitchTheme switch_;
-
-  /// < Theme for scale widgets
-  external gmwScaleTheme scale;
-
-  /// < Theme for joystick widgets
-  external gmwJoystickTheme joystick;
-
-  /// < Theme for frame widgets
-  external gmwFrameTheme frame;
-}
-
-typedef ptrdiff_t = ffi.Long;
-typedef Dartptrdiff_t = int;
-
-final class max_align_t extends ffi.Opaque {}
-
-final class mallinfo$1 extends ffi.Struct {
-  @ffi.Int()
-  external int arena;
-
-  @ffi.Int()
-  external int ordblks;
-
-  @ffi.Int()
-  external int smblks;
-
-  @ffi.Int()
-  external int hblks;
-
-  @ffi.Int()
-  external int hblkhd;
-
-  @ffi.Int()
-  external int usmblks;
-
-  @ffi.Int()
-  external int fsmblks;
-
-  @ffi.Int()
-  external int uordblks;
-
-  @ffi.Int()
-  external int fordblks;
-
-  @ffi.Int()
-  external int keepcost;
-}
-
-final class mallinfo2$1 extends ffi.Struct {
-  @ffi.Size()
-  external int arena;
-
-  @ffi.Size()
-  external int ordblks;
-
-  @ffi.Size()
-  external int smblks;
-
-  @ffi.Size()
-  external int hblks;
-
-  @ffi.Size()
-  external int hblkhd;
-
-  @ffi.Size()
-  external int usmblks;
-
-  @ffi.Size()
-  external int fsmblks;
-
-  @ffi.Size()
-  external int uordblks;
-
-  @ffi.Size()
-  external int fordblks;
-
-  @ffi.Size()
-  external int keepcost;
 }
 
 const int FP_NAN$1 = 0;
@@ -9678,11 +8414,7 @@ const int FP_SUBNORMAL$1 = 3;
 
 const int FP_NORMAL$1 = 4;
 
-const int GAMA_VERSION_MAJOR = 0;
-
-const int GAMA_VERSION_MINOR = 1;
-
-const int GAMA_VERSION_PATCH = 0;
+const int gnothing = 0;
 
 const int _MATH_H = 1;
 
@@ -10144,8 +8876,6 @@ const int __have_pthread_attr_t = 1;
 
 const int _ALLOCA_H = 1;
 
-const int gnothing = 0;
-
 const int GM_OPAQUE = 4294967295;
 
 const int GM_TRANSPARENT = 4294967040;
@@ -10501,33 +9231,3 @@ const int FILENAME_MAX = 4096;
 const int L_ctermid = 9;
 
 const int FOPEN_MAX = 16;
-
-const int GAMA_MAX_SPRITE_ANIM_LENGTH = 10;
-
-const int GAMA_MAX_THEME_CACHE_SIZE = 10;
-
-const int _MALLOC_H = 1;
-
-const int M_MXFAST = 1;
-
-const int M_NLBLKS = 2;
-
-const int M_GRAIN = 3;
-
-const int M_KEEP = 4;
-
-const int M_TRIM_THRESHOLD = -1;
-
-const int M_TOP_PAD = -2;
-
-const int M_MMAP_THRESHOLD = -3;
-
-const int M_MMAP_MAX = -4;
-
-const int M_CHECK_ACTION = -5;
-
-const int M_PERTURB = -6;
-
-const int M_ARENA_TEST = -7;
-
-const int M_ARENA_MAX = -8;
