@@ -66,20 +66,17 @@ class _EditorPanelState extends State<EditorPanel> {
             child: CodeTheme(
               data: CodeThemeData(
                 styles: monokaiSublimeTheme,
-                textStyle: GoogleFonts.firaCode().copyWith(
-                  fontSize: 14,
-                  height: 1.3,
-                ),
               ),
               child: CodeField(
                 controller: _codeController!,
                 focusNode: widget.focusNode,
-                textStyle: GoogleFonts.firaCode(fontSize: 14),
+                textStyle: GoogleFonts.firaCode().copyWith(
+                  fontSize: 14,
+                  height: 1.3,
+                ),
                 // Enable scrolling behavior
                 maxLines: null,
                 expands: false,
-                // Add scroll physics to ensure proper scrolling
-                scrollPhysics: const AlwaysScrollableScrollPhysics(),
               ),
             ),
           ),
