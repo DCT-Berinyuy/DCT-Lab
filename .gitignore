@@ -1,5 +1,122 @@
-/cli
-/bin
-/build/
-/docs
-/bin
+# Build outputs
+build/
+dct_lab/build/
+Projects/*/build/
+Projects/*/dist/
+Projects/*/out/
+
+# Compiled binaries
+*.so
+*.dll
+*.exe
+*.a
+*.lib
+*.dylib
+*.o
+*.obj
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+/var/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# V language
+.vcache/
+.vmodules/
+thirdparty/
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub/
+*.i
+*.h
+*.log
+
+# Node.js (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# C/C++ build files
+*.out
+*.bin
+*.exe
+obj/
+*.dSYM/
+*.pdb
+
+# Runtime files
+*.log
+logs/
+*.pid
+*.seed
+*.prof
+
+# User-specific files
+*.userprefs
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Compiled Python files
+*.pyc
+__pycache__/
+*.so
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Temporary folders for sample projects
+Projects/gce_insight/build/
+Projects/lineup/build/
+Projects/*/temp/
+Projects/*/*.temp
+
+# Gama temp files
+*/temp_code.c
+*/temp_executable
+*/dct_lab_temp_executable
+
+# Large binary files that shouldn't be in git
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.iso
+*.dmg
+*.img
+*.pdf  # If there are large PDFs that aren't essential
+
+# V language cache
+.vweb/
+.cache/
