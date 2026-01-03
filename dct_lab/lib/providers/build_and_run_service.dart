@@ -27,9 +27,33 @@ class BuildAndRunService extends ChangeNotifier {
       final sourceFile = File('${tempDir.path}/temp_code.c');
       await sourceFile.writeAsString(sourceCode);
 
+      // Check if the code includes gama.h to determine if we need special compilation
+      String compileCommand;
+      if (sourceCode.contains('#include <gama.h>')) {
+        // For Gama Engine code, we need to link with the Gama library
+        // Get the absolute path to the project root (from the dct_lab directory)
+        String currentDir = Directory.current.path;
+        String projectRoot;
+
+        // If we're in the dct_lab directory, go up one level to the main project directory
+        if (currentDir.endsWith('dct_lab')) {
+          projectRoot = currentDir.substring(0, currentDir.length - 7); // Remove '/dct_lab'
+        } else {
+          projectRoot = currentDir;
+        }
+
+        String gamaLibPath = '$projectRoot/dct_lab/build/native';
+        String gamaIncludePath = '$projectRoot/lib/gama';
+
+        compileCommand = 'gcc ${sourceFile.path} -o $outputPath -I$gamaIncludePath -L$gamaLibPath -lvgama -ldl -lm -lpthread';
+      } else {
+        // Standard C compilation
+        compileCommand = 'gcc ${sourceFile.path} -o $outputPath';
+      }
+
       // Compile the C code using gcc
       final shell = Shell(workingDirectory: tempDir.path);
-      final results = await shell.run('gcc ${sourceFile.path} -o $outputPath');
+      final results = await shell.run(compileCommand);
 
       // Shell.run() returns a List<ProcessResult>, we need the first one
       if (results.isNotEmpty && results[0].exitCode == 0) {
@@ -41,6 +65,8 @@ class BuildAndRunService extends ChangeNotifier {
         // Handle error output
         if (results.isNotEmpty) {
           _errorOutput = results[0].stderr.toString();
+          // Also include stdout in case of compilation errors
+          _errorOutput += '\n' + results[0].stdout.toString();
         } else {
           _errorOutput = 'Compilation failed with no output';
         }
@@ -62,7 +88,29 @@ class BuildAndRunService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await Process.run(executablePath, []);
+      // Set the library path to include the Gama library
+      Map<String, String> env = Map.from(Platform.environment);
+      String currentDir = Directory.current.path;
+      String projectRoot;
+
+      // If we're in the dct_lab directory, go up one level to the main project directory
+      if (currentDir.endsWith('dct_lab')) {
+        projectRoot = currentDir.substring(0, currentDir.length - 7); // Remove '/dct_lab'
+      } else {
+        projectRoot = currentDir;
+      }
+
+      String gamaLibPath = '$projectRoot/dct_lab/build/native';
+
+      // Add the Gama library path to LD_LIBRARY_PATH
+      String currentLdPath = env['LD_LIBRARY_PATH'] ?? '';
+      if (currentLdPath.isNotEmpty) {
+        env['LD_LIBRARY_PATH'] = '$gamaLibPath:$currentLdPath';
+      } else {
+        env['LD_LIBRARY_PATH'] = gamaLibPath;
+      }
+
+      final result = await Process.run(executablePath, [], environment: env);
       _runOutput = result.stdout;
       _errorOutput = result.stderr;
       _isRunning = false;
