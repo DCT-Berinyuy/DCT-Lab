@@ -31,20 +31,27 @@ class BuildAndRunService extends ChangeNotifier {
       String compileCommand;
       if (sourceCode.contains('#include <gama.h>')) {
         // For Gama Engine code, we need to link with the Gama library
-        // Get the absolute path to the project root (from the dct_lab directory)
-        String currentDir = Directory.current.path;
+        // Get the absolute path to the project root
+        String scriptDir = Directory.fromUri(Platform.script).parent.path;
         String projectRoot;
 
-        // If we're in the dct_lab directory, go up one level to the main project directory
-        if (currentDir.endsWith('dct_lab')) {
-          projectRoot = currentDir.substring(0, currentDir.length - 7); // Remove '/dct_lab'
+        // If the script is in dct_lab/lib, go up two levels to the main project directory
+        if (scriptDir.contains('/dct_lab/lib')) {
+          projectRoot = scriptDir.substring(0, scriptDir.indexOf('/dct_lab/lib'));
         } else {
-          projectRoot = currentDir;
+          // Fallback: try to determine project root from current working directory
+          String currentDir = Directory.current.path;
+          if (currentDir.endsWith('/dct_lab')) {
+            projectRoot = currentDir.substring(0, currentDir.length - 8); // Remove '/dct_lab'
+          } else {
+            projectRoot = currentDir;
+          }
         }
 
         String gamaLibPath = '$projectRoot/dct_lab/build/native';
         String gamaIncludePath = '$projectRoot/lib/gama';
 
+        // Use the correct library name (libvgama.so)
         compileCommand = 'gcc ${sourceFile.path} -o $outputPath -I$gamaIncludePath -L$gamaLibPath -lvgama -ldl -lm -lpthread';
       } else {
         // Standard C compilation
@@ -90,14 +97,20 @@ class BuildAndRunService extends ChangeNotifier {
     try {
       // Set the library path to include the Gama library
       Map<String, String> env = Map.from(Platform.environment);
-      String currentDir = Directory.current.path;
+      String scriptDir = Directory.fromUri(Platform.script).parent.path;
       String projectRoot;
 
-      // If we're in the dct_lab directory, go up one level to the main project directory
-      if (currentDir.endsWith('dct_lab')) {
-        projectRoot = currentDir.substring(0, currentDir.length - 7); // Remove '/dct_lab'
+      // If the script is in dct_lab/lib, go up two levels to the main project directory
+      if (scriptDir.contains('/dct_lab/lib')) {
+        projectRoot = scriptDir.substring(0, scriptDir.indexOf('/dct_lab/lib'));
       } else {
-        projectRoot = currentDir;
+        // Fallback: try to determine project root from current working directory
+        String currentDir = Directory.current.path;
+        if (currentDir.endsWith('/dct_lab')) {
+          projectRoot = currentDir.substring(0, currentDir.length - 8); // Remove '/dct_lab'
+        } else {
+          projectRoot = currentDir;
+        }
       }
 
       String gamaLibPath = '$projectRoot/dct_lab/build/native';
