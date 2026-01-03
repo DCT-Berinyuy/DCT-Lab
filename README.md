@@ -1,8 +1,10 @@
 # DCT Lab - C/C++ & Gama Engine IDE
 
-![DCT Lab IDE Interface](ide1.png)
+![DCT Lab IDE Interface](DCT-Lab2.png)
 
 DCT Lab is a comprehensive, offline-first Integrated Development Environment (IDE) designed for C/C++ and Gama Engine game development. It provides a unified platform where developers can write, compile, and run both general C/C++ programs and specialized Gama Engine games with real-time graphics rendering.
+
+![DCT Lab IDE Interface](DCT-Lab1.png)
 
 **Website:** https://gama.rbs.cm
 **Documentation:** https://gama.rbs.cm/docs
