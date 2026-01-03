@@ -1,9 +1,12 @@
+import '../providers/project_provider.dart';
+
 class Project {
   String name;
   String path;
   String mainFile;
   List<String> files;
   bool isSaved;
+  ProjectType type;
 
   Project({
     required this.name,
@@ -11,16 +14,21 @@ class Project {
     required this.mainFile,
     this.files = const [],
     this.isSaved = false,
+    this.type = ProjectType.cpp,
   });
 
   // Create a new project
-  static Project createNew(String projectName, String projectPath) {
+  static Project createNew(String projectName, String projectPath, {ProjectType type = ProjectType.cpp}) {
+    String defaultMainFile = type == ProjectType.gama ? 'main.c' : 'main.c';
+    String defaultFile = type == ProjectType.gama ? 'main.c' : 'main.c';
+
     return Project(
       name: projectName,
       path: projectPath,
-      mainFile: 'main.c',
-      files: ['main.c'],
+      mainFile: defaultMainFile,
+      files: [defaultFile],
       isSaved: false,
+      type: type,
     );
   }
 
@@ -32,17 +40,22 @@ class Project {
       'mainFile': mainFile,
       'files': files,
       'isSaved': isSaved,
+      'type': type.toString().split('.').last, // Convert enum to string
     };
   }
 
   // Create from JSON
   static Project fromJson(Map<String, dynamic> json) {
+    String typeStr = json['type'] ?? 'cpp';
+    ProjectType projectType = typeStr == 'gama' ? ProjectType.gama : ProjectType.cpp;
+
     return Project(
       name: json['name'] ?? '',
       path: json['path'] ?? '',
       mainFile: json['mainFile'] ?? 'main.c',
       files: List<String>.from(json['files'] ?? []),
       isSaved: json['isSaved'] ?? false,
+      type: projectType,
     );
   }
 

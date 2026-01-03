@@ -11,6 +11,9 @@
 // NOTE: The order is important, major, minor, patch
 #include "draw.h"
 #include "gapi.h"
+#include "key.h"
+#include "mouse.h"
+#include "physics.h"
 #include "stdio.h"
 #include "widgets/frame.h"
 
