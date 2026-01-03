@@ -1,7 +1,8 @@
-# Gama
+# DCT Lab - C/C++ & Gama Engine IDE
 
-![Gama logo](./gama.svg)
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G4XYJU6)
+![DCT Lab IDE Interface](ide1.png)
+
+DCT Lab is a comprehensive, offline-first Integrated Development Environment (IDE) designed for C/C++ and Gama Engine game development. It provides a unified platform where developers can write, compile, and run both general C/C++ programs and specialized Gama Engine games with real-time graphics rendering.
 
 **Website:** https://gama.rbs.cm
 **Documentation:** https://gama.rbs.cm/docs
@@ -12,6 +13,22 @@ and control.
 
 ## Features
 
+### DCT Lab IDE Features
+- **Offline-First**: No internet connection or user accounts required
+- **Modern UI**: Dark-themed interface with intuitive navigation
+- **Project Management**: Organize your code in projects with functional file explorer
+- **Code Templates**: Pre-built templates for common C/C++ and Gama patterns
+- **Syntax Highlighting**: For C/C++ and Gama-specific code
+- **Integrated Compiler**: Built-in compilation and execution for C/C++ and Gama projects
+- **Resizable Panels**: Customize your workspace with adjustable editor and console panels
+- **Dual Support**: Handles both standard C/C++ projects and Gama Engine game development
+- **Visual Code Editor**: With syntax highlighting and project management
+- **Real-time Graphics**: Gama Engine projects render directly in separate windows
+- **Interactive UI**: With resizable panels and intuitive navigation
+- **Functional File Explorer**: Click on files to load corresponding code templates
+- **Navigation Bar**: Switch between different screens (Templates, Editor, etc.)
+
+### Gama Engine Features
 - **Lightweight C Library**: Simple, easy-to-learn C API with clear function names designed specifically for students and beginners.
 - **Built-in 2D Physics Engine**: Physics system with bodies, shapes, and collision detection supporting restitution, friction, and constraints.
 - **Immediate Mode Rendering**: Draw shapes directly without creating objects. Reduces pointer usage and manual memory management.
@@ -21,9 +38,33 @@ and control.
 - **Cross-Platform Development**: Target Windows, Linux, and Web with consistent APIs and behavior.
 - **Educational Focus**: Designed specifically for teaching C programming with safety and simplicity in mind.
 
-## Commands
+## Getting Started with DCT Lab IDE
 
-This project uses the `mng` script for various tasks:
+1. Clone this repository
+2. Navigate to the `dct_lab` directory
+3. Install Flutter dependencies with `flutter pub get`
+4. Run the IDE with `flutter run -d linux` (or your target platform)
+
+## Using DCT Lab IDE
+
+### Creating a New Project
+1. Open the IDE and select a template from the Templates screen
+2. Choose between C/C++ templates or Gama Engine templates
+3. The IDE will automatically configure the project type
+
+### Writing Code
+1. Use the code editor to write your C/C++ or Gama code
+2. The file explorer allows you to navigate between files
+3. Use the navigation bar to switch between different screens
+
+### Compiling and Running
+1. Click the "Compile" button to compile your code
+2. Click the "Run" button to execute your program
+3. For Gama projects, a separate window will appear with your game
+
+## Gama Engine Commands
+
+This project uses the `mng` script for various Gama Engine tasks:
 
 - `./mng build` - Builds the Gama CLI tool for both Linux and Windows
 - `./mng docs` - Generates Doxygen documentation and integrates it into the Svelte site
@@ -109,8 +150,20 @@ int main() {
 
 Always nice to see PRs and issues (at least almost always); which are not mine :smiley:.
 
+### Contributing to DCT Lab IDE
+The DCT Lab IDE is built with Flutter and can be found in the `dct_lab/` directory. Contributions to the IDE are welcome:
+- UI improvements and new features
+- Bug fixes and performance enhancements
+- Additional code templates and project generators
+- Better integration with the Gama Engine
+
+### Contributing to the Gama Engine
 To contribute to the documentation or the site:
 - Website source code is located in the `site/` directory
 - Documentation is generated automatically with Doxygen and the `mng docs` command
 - Add new tutorials/pages in `site/src/routes/docs/`
 - The build system automatically serves Doxygen documentation at `/reference/`
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
