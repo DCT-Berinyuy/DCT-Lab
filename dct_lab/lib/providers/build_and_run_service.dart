@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:process_run/shell.dart';
@@ -123,12 +124,29 @@ class BuildAndRunService extends ChangeNotifier {
         env['LD_LIBRARY_PATH'] = gamaLibPath;
       }
 
-      final result = await Process.run(executablePath, [], environment: env);
-      _runOutput = result.stdout;
-      _errorOutput = result.stderr;
+      // For Gama Engine applications, we need to spawn the process separately
+      // so the window can be visible and interactive
+      final process = await Process.start(executablePath, [], environment: env);
+
+      // Listen for stdout
+      process.stdout.transform(utf8.decoder).listen((data) {
+        _runOutput += data;
+        notifyListeners();
+      });
+
+      // Listen for stderr
+      process.stderr.transform(utf8.decoder).listen((data) {
+        _errorOutput += data;
+        notifyListeners();
+      });
+
+      // Wait for the process to complete
+      final exitCode = await process.exitCode;
+
       _isRunning = false;
       notifyListeners();
-      return result.stdout;
+
+      return _runOutput;
     } catch (e) {
       _errorOutput = e.toString();
       _isRunning = false;
