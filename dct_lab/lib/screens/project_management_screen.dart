@@ -68,35 +68,79 @@ class _ProjectManagementScreenState extends State<ProjectManagementScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('New Project'),
-          content: TextField(
-            controller: projectNameController,
-            decoration: const InputDecoration(hintText: 'Project Name'),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (projectNameController.text.isNotEmpty) {
-                  projectProvider.createNewProject(
-                      projectNameController.text, '/path/to/new/project');
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AdvancedCodeEditorScreen(
-                          project: projectProvider.currentProject),
+        String selectedProjectType = 'C/C++'; // Default selection
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('New Project'),
+              content: SizedBox(
+                width: 400,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: projectNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Project Name',
+                        hintText: 'Enter project name',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                  );
-                }
-              },
-              child: const Text('Create'),
-            ),
-          ],
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                      value: selectedProjectType,
+                      decoration: const InputDecoration(
+                        labelText: 'Project Type',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: <String>['C/C++', 'Gama Engine']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedProjectType = newValue!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (projectNameController.text.isNotEmpty) {
+                      // Determine project type based on selection
+                      ProjectType projectType = selectedProjectType == 'Gama Engine'
+                          ? ProjectType.gama
+                          : ProjectType.cpp;
+
+                      projectProvider.createNewProject(
+                          projectNameController.text,
+                          '/path/to/new/project',
+                          projectType);
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AdvancedCodeEditorScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Create'),
+                ),
+              ],
+            );
+          },
         );
       },
     );

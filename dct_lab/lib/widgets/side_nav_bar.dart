@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/advanced_code_editor_screen.dart';
+import '../screens/project_management_screen.dart';
 import '../screens/templates_screen.dart';
 
 class SideNavBar extends StatelessWidget {
@@ -71,6 +72,20 @@ class SideNavBar extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.code),
+              color: Colors.grey,
+            ),
+          ),
+          // Project Management
+          Tooltip(
+            message: 'Project Management',
+            child: IconButton(
+              onPressed: () {
+                // Navigate to project management screen
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const ProjectManagementScreen()),
+                );
+              },
+              icon: const Icon(Icons.folder_special),
               color: Colors.grey,
             ),
           ),
