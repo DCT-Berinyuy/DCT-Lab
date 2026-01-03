@@ -149,7 +149,7 @@ fn run_gg_loop() {
 	gapi_framebuffer_data = []u8{cap: gapi_width__ * gapi_height__ * 4, len: gapi_width__ * gapi_height__ * 4}
 
 	// Initialize streaming image for potential framebuffer capture
-	gapi_streaming_image_idx = gapi_ctx__.new_streaming_image(gapi_width__, gapi_height__, 4, gg.default_streaming_image_config())
+	// gapi_streaming_image_idx = gapi_ctx__.new_streaming_image(gapi_width__, gapi_height__, 4, gg.default_streaming_image_config())
 
 	gapi_ctx__.run()
 	println(term.ok_message('[vgama] App finished running'))

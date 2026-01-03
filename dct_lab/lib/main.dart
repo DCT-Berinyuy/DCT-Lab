@@ -26,7 +26,7 @@ class DctLabApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GamaService()),
       ],
       child: MaterialApp(
-        title: 'DCT Lab - C/C++ Learning IDE',
+        title: 'DCT Lab - C/C++ & Gama Engine IDE',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'dart:io';
 import '../providers/code_editor_provider.dart';
 import '../providers/build_and_run_service.dart';
+import '../providers/project_provider.dart';
 import '../models/project_model.dart';
 
 class AdvancedCodeEditorScreen extends StatefulWidget {
@@ -37,12 +38,32 @@ class _AdvancedCodeEditorScreenState extends State<AdvancedCodeEditorScreen> {
   void _loadInitialCode() {
     final provider = Provider.of<CodeEditorProvider>(context, listen: false);
     if (provider.code.isEmpty) {
-      provider.setCode('''#include <stdio.h>
+      // Check the project type to determine the initial code
+      final projectProvider = Provider.of<ProjectProvider>(context, listen: false);
+      if (projectProvider.currentProjectType == ProjectType.gama) {
+        provider.setCode('''#include <gama.h>
+
+int main() {
+    gm_init(800, 600, "Gama Engine Example");
+    gm_background(GM_WHITE);
+
+    while(gm_yield()) {
+        // Draw a simple shape
+        gm_draw_rectangle(0, 0, 0.2, 0.2, GM_RED);
+
+        // Add your game logic here
+    }
+
+    return 0;
+}''');
+      } else {
+        provider.setCode('''#include <stdio.h>
 
 int main() {
     printf("Hello, World!\\n");
     return 0;
 }''');
+      }
     }
   }
 
@@ -61,6 +82,7 @@ int main() {
     final buildService =
         Provider.of<BuildAndRunService>(context, listen: false);
     final codeProvider = Provider.of<CodeEditorProvider>(context, listen: false);
+    final projectProvider = Provider.of<ProjectProvider>(context, listen: false);
 
     // Show a loading snackbar
     final snackBar = SnackBar(
@@ -87,27 +109,45 @@ int main() {
         buildService
             .runCode('${Directory.systemTemp.path}/dct_lab_temp_executable')
             .then((output) {
-          // Show the output in a dialog
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Program Output'),
-              content: Container(
-                width: double.maxFinite,
-                child: SingleChildScrollView(
-                  child: Text(output.isNotEmpty
-                      ? output
-                      : 'Program executed successfully with no output'),
-                ),
+          // For Gama projects, the output might be graphical, so handle differently
+          if (projectProvider.currentProjectType == ProjectType.gama) {
+            // For Gama projects, show a success message instead of text output
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Gama Application'),
+                content: const Text('Gama application executed successfully! The game window should appear shortly.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('OK'),
+                  ),
+                ],
               ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close'),
+            );
+          } else {
+            // For regular C/C++ projects, show the text output
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Program Output'),
+                content: Container(
+                  width: double.maxFinite,
+                  child: SingleChildScrollView(
+                    child: Text(output.isNotEmpty
+                        ? output
+                        : 'Program executed successfully with no output'),
+                  ),
                 ),
-              ],
-            ),
-          );
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Close'),
+                  ),
+                ],
+              ),
+            );
+          }
         });
       } else {
         // Show compilation error
@@ -136,6 +176,7 @@ int main() {
   void _compileCode() {
     final buildService = Provider.of<BuildAndRunService>(context, listen: false);
     final codeProvider = Provider.of<CodeEditorProvider>(context, listen: false);
+    final projectProvider = Provider.of<ProjectProvider>(context, listen: false);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -155,8 +196,12 @@ int main() {
       '${Directory.systemTemp.path}/dct_lab_temp_executable',
     ).then((success) {
       if (success) {
+        String successMessage = 'Compilation successful!';
+        if (projectProvider.currentProjectType == ProjectType.gama) {
+          successMessage = 'Gama project compiled successfully!';
+        }
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Compilation successful!')),
+          SnackBar(content: Text(successMessage)),
         );
       } else {
         showDialog(

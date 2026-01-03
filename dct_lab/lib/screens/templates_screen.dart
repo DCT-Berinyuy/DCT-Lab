@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/code_template.dart';
 import '../providers/code_editor_provider.dart';
+import '../providers/project_provider.dart';
 import '../widgets/template_card.dart';
 import 'advanced_code_editor_screen.dart';
 
@@ -72,16 +73,6 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
           TextButton(onPressed: () {}, child: const Text('Edit')),
           TextButton(onPressed: () {}, child: const Text('View')),
           TextButton(onPressed: () {}, child: const Text('Help')),
-          const SizedBox(width: 20),
-          ElevatedButton(onPressed: () {}, child: const Text('Log In')),
-          const SizedBox(width: 8),
-          ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[800],
-                  foregroundColor: Colors.white),
-              child: const Text('Sign Up')),
-          const SizedBox(width: 20),
         ],
       ),
       body: SingleChildScrollView(
@@ -151,6 +142,15 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
                   return InkWell(
                     onTap: () {
                       codeEditorProvider.loadTemplate(template.code);
+
+                      // Determine project type based on template and update provider
+                      final projectProvider = Provider.of<ProjectProvider>(context, listen: false);
+                      ProjectType projectType = template.name.contains('Gama')
+                          ? ProjectType.gama
+                          : ProjectType.cpp;
+                      projectProvider.updateCurrentProjectType(projectType);
+
+                      // Navigate to the editor screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -189,7 +189,7 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
               child: Container(
                 color: Colors.black.withOpacity(0.4),
                 child: const Center(
-                  child: Icon(Icons.smart_toy, size: 64, color: Colors.white),
+                  child: Icon(Icons.extension, size: 64, color: Colors.white),
                 ),
               ),
             ),
@@ -201,22 +201,29 @@ class _TemplatesScreenState extends State<TemplatesScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Chip(
-                      label: Text('New Feature'),
-                      backgroundColor: Colors.purple,
+                      label: Text('Local'),
+                      backgroundColor: Colors.blue,
                       labelStyle: TextStyle(color: Colors.white, fontSize: 10),
                     ),
                     const SizedBox(height: 8),
-                    const Text('AI Template Generator',
+                    const Text('Template Generator',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Text(
-                      'Not sure where to start? Describe the game or program you want to build and our AI will generate a custom starter project with comments explaining the code.',
+                      'Quickly generate starter projects with common patterns and structures for your C/C++ or Gama projects.',
                       style: TextStyle(color: Colors.grey[400]),
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        // TODO: Implement local template generation
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Local template generation coming soon'),
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.auto_awesome),
                       label: const Text('Generate Project'),
                     )
