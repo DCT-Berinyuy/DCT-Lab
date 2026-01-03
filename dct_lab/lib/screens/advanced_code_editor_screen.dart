@@ -252,6 +252,7 @@ int main() {
                   child: ResizableSplitView(
                     left: EditorPanel(focusNode: _editorFocusNode),
                     right: const OutputPanel(),
+                    initialLeftWidth: 800.0, // Give more space to the editor by default
                   ),
                 ),
               ],
