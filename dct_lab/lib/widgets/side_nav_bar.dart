@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../screens/advanced_code_editor_screen.dart';
+import '../screens/templates_screen.dart';
 
 class SideNavBar extends StatelessWidget {
   const SideNavBar({super.key});
@@ -51,7 +53,7 @@ class SideNavBar extends StatelessWidget {
               onPressed: () {
                 // Navigate to templates screen
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const TemplatesScreen()),
+                  MaterialPageRoute(builder: (context) => TemplatesScreen()),
                 );
               },
               icon: const Icon(Icons.dashboard),
@@ -65,7 +67,7 @@ class SideNavBar extends StatelessWidget {
               onPressed: () {
                 // Navigate to code editor screen
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const AdvancedCodeEditorScreen()),
+                  MaterialPageRoute(builder: (context) => AdvancedCodeEditorScreen()),
                 );
               },
               icon: const Icon(Icons.code),

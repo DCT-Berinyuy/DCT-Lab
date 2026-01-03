@@ -1,4 +1,5 @@
 import 'package:dct_lab/providers/gama_service.dart';
+import 'package:dct_lab/screens/advanced_code_editor_screen.dart';
 import 'package:dct_lab/screens/templates_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,8 +62,8 @@ class DctLabApp extends StatelessWidget {
         themeMode: ThemeMode.dark, // Enforce dark mode for now
         home: const TemplatesScreen(),
         routes: {
-          '/templates': (context) => const TemplatesScreen(),
-          '/editor': (context) => const AdvancedCodeEditorScreen(),
+          '/templates': (context) => TemplatesScreen(),
+          '/editor': (context) => AdvancedCodeEditorScreen(),
         },
         debugShowCheckedModeBanner: false,
       ),
