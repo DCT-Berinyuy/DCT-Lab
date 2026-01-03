@@ -29,6 +29,9 @@ __global (
 	gapi_mouse_x__      i32
 	gapi_mouse_y__      i32
 	gapi_mouse_down__   bool
+	// Framebuffer
+	gapi_framebuffer_data []u8
+	gapi_streaming_image_idx int
 )
 
 fn update_virtual_dimensions() {
@@ -46,18 +49,13 @@ fn update_virtual_dimensions() {
 }
 
 fn frame(mut _ gg.Context) {
-	gapi_ctx__.begin()
-	gapi_ctx__.end(how: .clear)
-
-	gapi_ctx__.begin()
+	// Process all drawing commands
 	mut count := u64(0)
 	for {
 		select {
 			func := <-gapi_queue__ {
 				if count > 30000 {
 					count = 0
-					gapi_ctx__.end(how: .passthru)
-					gapi_ctx__.begin()
 				}
 				func()
 				count++
@@ -67,7 +65,10 @@ fn frame(mut _ gg.Context) {
 			}
 		}
 	}
-	gapi_ctx__.end(how: .passthru)
+
+	// Draw the streaming image to the screen to display the content
+	// This is where we would update the streaming image with actual pixel data if we had it
+	// For now, we'll just draw a placeholder
 }
 
 @[export: 'gapi_wait_queue']
@@ -143,6 +144,12 @@ fn run_gg_loop() {
 			gapi_mouse_down__ = false
 		}
 	)
+
+	// Initialize framebuffer data array
+	gapi_framebuffer_data = []u8{cap: gapi_width__ * gapi_height__ * 4, len: gapi_width__ * gapi_height__ * 4}
+
+	// Initialize streaming image for potential framebuffer capture
+	gapi_streaming_image_idx = gapi_ctx__.new_streaming_image(gapi_width__, gapi_height__, 4, gg.default_streaming_image_config())
 
 	gapi_ctx__.run()
 	println(term.ok_message('[vgama] App finished running'))
@@ -234,4 +241,22 @@ fn gapi_fullscreen(fc i32) {
 @[unsafe]
 fn gapi_get_body_count() int {
 	return 5 // Hardcoded for now
+}
+
+@[export: 'gapi_get_framebuffer']
+@[unsafe]
+fn gapi_get_framebuffer() &u8 {
+	// Return pointer to the framebuffer data array
+	return gapi_framebuffer_data.data
+}
+
+@[export: 'gapi_update_framebuffer']
+@[unsafe]
+fn gapi_update_framebuffer(data &u8, size int) {
+	// Update the framebuffer data with pixel data provided from the C side
+	if data != nil && size <= gapi_framebuffer_data.len {
+		for i := 0; i < size; i++ {
+			gapi_framebuffer_data[i] = data[i]
+		}
+	}
 }

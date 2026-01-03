@@ -1,3 +1,4 @@
+import 'package:dct_lab/widgets/game_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/gama_service.dart';
@@ -22,12 +23,7 @@ class OutputPanel extends StatelessWidget {
             child: TabBarView(
               children: [
                 // Game Viewport
-                Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('Game Viewport', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
+                const GameViewport(),
                 // Console
                 Container(
                   color: Theme.of(context).cardColor,

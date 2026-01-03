@@ -3,4 +3,4 @@ description: 'Bindings for the Gama Engine.'
 output: 'lib/gama_bindings.dart'
 headers:
   entry-points:
-    - '../lib/gama.h'
+    - '../lib/gama/gama.h'
