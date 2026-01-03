@@ -111,18 +111,11 @@ int main() {
             .then((output) {
           // For Gama projects, the output might be graphical, so handle differently
           if (projectProvider.currentProjectType == ProjectType.gama) {
-            // For Gama projects, show a success message instead of text output
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text('Gama Application'),
-                content: const Text('Gama application executed successfully! The game window should appear shortly.'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('OK'),
-                  ),
-                ],
+            // For Gama projects, just show a notification that the app is running
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Gama application is running! The game window should appear shortly.'),
+                duration: Duration(seconds: 3),
               ),
             );
           } else {
