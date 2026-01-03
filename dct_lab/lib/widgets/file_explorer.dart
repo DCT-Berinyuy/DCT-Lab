@@ -19,13 +19,14 @@ class _FileExplorerState extends State<FileExplorer> {
       children: [
         _FileNode(name: 'main.c', type: _FileType.file, template: 'Hello World'),
         _FileNode(name: 'gama.h', type: _FileType.file, template: 'Gama Engine Template'),
+        _FileNode(name: 'physics_sim.c', type: _FileType.file, template: 'Gama Physics Simulation'),
         _FileNode(name: 'player.h', type: _FileType.file, template: 'Simple Calculator'),
         _FileNode(
           name: 'src',
           type: _FileType.folder,
           children: [
             _FileNode(name: 'game_loop.c', type: _FileType.file, template: 'Loop Example'),
-            _FileNode(name: 'physics.c', type: _FileType.file, template: 'Gama Engine Template'),
+            _FileNode(name: 'physics.c', type: _FileType.file, template: 'Gama Physics Simulation'),
           ],
         ),
         _FileNode(
