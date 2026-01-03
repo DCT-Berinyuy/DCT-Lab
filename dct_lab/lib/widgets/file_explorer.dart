@@ -223,7 +223,6 @@ class _FolderTileState extends State<_FolderTile> {
           value: 'delete',
           child: Text('Delete'),
         ),
-        const PopupMenuDivider(),
         const PopupMenuItem(
           value: 'new_file',
           child: Text('New File'),
@@ -332,7 +331,6 @@ class _FileTile extends StatelessWidget {
           value: 'delete',
           child: Text('Delete'),
         ),
-        const PopupMenuDivider(),
         const PopupMenuItem(
           value: 'duplicate',
           child: Text('Duplicate'),
